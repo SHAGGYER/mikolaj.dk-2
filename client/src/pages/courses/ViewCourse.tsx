@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "react-router";
 import HttpClient from "services/HttpClient";
 import { Container, PrimaryButton } from "components/UI";
@@ -9,6 +15,7 @@ import { debounce, throttle } from "lodash";
 import { CustomDialog, useDialog } from "react-st-modal";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../../components/Stripe/CheckoutForm";
+import PublicContext from "contexts/PublicContext";
 
 const EnrollDialog = ({ total }) => {
   const dialog = useDialog();
@@ -86,6 +93,7 @@ interface Lesson {
 
 function ViewCourse(props) {
   const { id } = useParams<{ id: string }>();
+  const { user } = useContext(PublicContext);
 
   const [intervalId, setIntervalId] = useState<any>(undefined);
   const [userCourse, setUserCourse] = useState<any>(null);
@@ -234,7 +242,7 @@ function ViewCourse(props) {
     <Wrapper>
       <Container>
         <Subtitle>{course?.name}</Subtitle>
-        {!userCourse && (
+        {!userCourse && user && (
           <div
             style={{ position: "relative", zIndex: 1, marginBottom: "1rem" }}
           >
