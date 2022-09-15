@@ -70,6 +70,8 @@ const BigImageDialog = ({ path }) => {
 };
 
 export default function MediaExplorer({ onSelect, noTitle, browser }) {
+  const dialog = useDialog();
+
   const [images, setImages] = useState([]);
   const [file, setFile] = useState(null);
 
@@ -104,11 +106,10 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
     await CustomDialog(<BigImageDialog path={path} />);
   };
 
-  const dialog = useDialog();
-
   const handleOnSelect = (image) => {
+    console.log(image);
     onSelect("/uploads/" + image.filePath);
-    dialog.close();
+    dialog.close("/uploads/" + image.filePath);
   };
 
   return (

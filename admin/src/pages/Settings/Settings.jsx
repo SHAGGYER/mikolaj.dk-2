@@ -7,12 +7,14 @@ import Button from "../../components/Button";
 import TextField from "../../components/TextField";
 import S from "react-switch";
 import MediaExplorer from "../../components/MediaExplorer";
+import { setSettings } from "../../store/reducers/Auth";
 const Switch = S.default ? S.default : S;
 
 const MediaExplorerDialog = () => {
   const dialog = useDialog();
 
   const onSelect = (path) => {
+    console.log("path", path);
     dialog.close(path);
   };
 
@@ -56,6 +58,7 @@ export default function Settings() {
 
   const openUpdateHomepageHeaderImageDialog = async () => {
     const result = await CustomDialog(<MediaExplorerDialog />);
+    console.log(result);
 
     if (result) {
       await HttpClient().put("/api/admin/update-homepage-image", {
@@ -63,7 +66,7 @@ export default function Settings() {
       });
       const _settings = { ...settings };
       _settings.homepageHeaderImage = result;
-      dispatch(updateSettings(_settings));
+      dispatch(setSettings(_settings));
     }
   };
 
@@ -76,7 +79,7 @@ export default function Settings() {
       });
       const _settings = { ...settings };
       _settings.homepageAboutPlatformImage = result;
-      dispatch(updateSettings(_settings));
+      dispatch(setSettings(_settings));
     }
   };
 
