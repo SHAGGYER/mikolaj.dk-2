@@ -16,6 +16,7 @@ const Course = styled.div`
 interface ICourse {
   _id: string;
   name: string;
+  price: number;
 }
 function BrowseCourses(props) {
   const history = useHistory();
@@ -42,7 +43,7 @@ function BrowseCourses(props) {
             <Course key={index}>
               <div>
                 <h3>{course.name}</h3>
-                <h4>$19.99</h4>
+                <h4>${course.price}</h4>
               </div>
               <div style={{ position: "relative", zIndex: 1 }}>
                 <PrimaryButton
