@@ -63,5 +63,6 @@ router.get("/:id", CoursesController.getCourse);
 router.get("/", CoursesController.browseCourses);
 router.post("/section", IsAdmin, CoursesController.createSection);
 router.post("/enroll", IsUser, CoursesController.enroll);
+router.post("/delete", IsAdmin, CoursesController.deleteCourses);
 
 export default router;

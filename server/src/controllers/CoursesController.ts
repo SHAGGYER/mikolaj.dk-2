@@ -8,6 +8,16 @@ import mongoose from "mongoose";
 import UserLesson from "../models/UserLesson";
 
 export class CoursesController {
+  static async deleteCourses(req, res) {
+    await Course.deleteMany({
+      _id: {
+        $in: req.body.ids,
+      },
+    });
+
+    res.sendStatus(204);
+  }
+
   static async getUserLesson(req, res) {
     const userLesson = await UserLesson.findOne({
       lessonId: req.params.lessonId,
@@ -132,12 +142,9 @@ export class CoursesController {
   }
 
   static async updateCourse(req, res) {
-    const course = await Course.findById(req.params.id);
-    course!.name = req.body.name;
-    course!.price = req.body.price;
-    await course!.save();
+    await Course.findByIdAndUpdate(req.params.id, { $set: req.body });
 
-    res.send(course);
+    res.sendStatus(204);
   }
 
   static async browseCourses(req, res) {

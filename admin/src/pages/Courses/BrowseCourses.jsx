@@ -55,7 +55,9 @@ export default function BrowseCourses(props) {
   }, []);
 
   const deleteRows = async (ids) => {
+    await HttpClient().post("/api/courses/delete", { ids });
     cogoToast.success(`Successfully deleted ${selectedRows.length} rows`);
+    await fetchRows(1);
   };
 
   const handleRowSelected = React.useCallback((state) => {

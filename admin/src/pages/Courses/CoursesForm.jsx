@@ -10,6 +10,7 @@ import FileUploader from "../../components/FileUploader";
 import { HoverButton } from "../../components/HoverButton";
 import Dropdown from "../../components/Dropdown";
 import LessonSettingsDropdown from "../../components/LessonSettingsDropdown";
+import CourseSettingsDropdown from "../../components/CourseSettingsDropdown";
 
 const PreviewDialog = ({ lessonId }) => {
   return (
@@ -41,12 +42,18 @@ const Section = styled.section`
     background-color: #ccc;
   }
 
-  nav {
+  > nav {
     position: absolute;
-    right: 0;
+    right: 5px;
     top: 5px;
     display: flex;
     gap: 0.25rem;
+
+    button {
+      font-size: 12px;
+      padding: 0.25rem 0.75rem;
+      border-radius: 5px;
+    }
   }
 `;
 
@@ -110,6 +117,11 @@ export default function CoursesForm({ row }) {
       `/api/courses/get-lessons/${courseId}`
     );
     setLessons(data.lessons);
+  };
+
+  const updateCourse = async (course) => {
+    await HttpClient().put(`/api/courses/${course._id}`, course);
+    cogoToast.success(`Course ${course ? "updated" : "created"} successfully`);
   };
 
   const getLessonsForSection = (sectionId, sectionIndex) => {
@@ -391,6 +403,11 @@ export default function CoursesForm({ row }) {
       </div>
       {!!usedRow && (
         <div>
+          <CourseSettingsDropdown
+            course={usedRow}
+            onCourseChanged={updateCourse}
+          />
+
           {!sections.length && (
             <Button
               onClick={() => {
@@ -427,29 +444,6 @@ export default function CoursesForm({ row }) {
                       handleChangeSection("name", e, sectionIndex)
                     }
                   />
-
-                  <Button
-                    onClick={() => {
-                      const newLessons = [...lessons];
-                      const thisLessons = [
-                        ...getLessonsForSection(section._id),
-                      ];
-                      const lastThisLesson =
-                        thisLessons[thisLessons.length - 1];
-                      const indexThisLesson =
-                        newLessons.indexOf(lastThisLesson);
-                      newLessons.splice(indexThisLesson + 1, 0, {
-                        sectionId: section?._id,
-                        courseId: usedRow?._id,
-                        name: "",
-                        uuid: v4(),
-                      });
-
-                      setLessons(newLessons);
-                    }}
-                  >
-                    Create Lesson
-                  </Button>
 
                   <div>
                     {getLessonsForSection(section?._id)
@@ -504,12 +498,36 @@ export default function CoursesForm({ row }) {
                           />
                         </Lesson>
                       ))}
+
+                    <Button
+                      onClick={() => {
+                        const newLessons = [...lessons];
+                        const thisLessons = [
+                          ...getLessonsForSection(section._id),
+                        ];
+                        const lastThisLesson =
+                          thisLessons[thisLessons.length - 1];
+                        const indexThisLesson =
+                          newLessons.indexOf(lastThisLesson);
+                        newLessons.splice(indexThisLesson + 1, 0, {
+                          sectionId: section?._id,
+                          courseId: usedRow?._id,
+                          name: "",
+                          uuid: v4(),
+                        });
+
+                        setLessons(newLessons);
+                      }}
+                    >
+                      New Lesson
+                    </Button>
                   </div>
                   <HoverButton
                     onClick={() => {
                       const newSections = [...sections];
                       newSections.splice(sectionIndex + 1, 0, {
                         name: "",
+                        order: sectionIndex + 1,
                       });
                       setSections(newSections);
                     }}
