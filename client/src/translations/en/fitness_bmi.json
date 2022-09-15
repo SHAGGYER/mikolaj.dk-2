@@ -1,0 +1,8 @@
+{
+  "title": "BMI Calculator",
+  "height_cm": "Height in cm",
+  "weight_kg": "Weight in kg",
+  "calculate_button": "Calculate your BMI",
+  "your_bmi": "Your BMI",
+  "your_weight_level": "Your Weight Level"
+}

@@ -1,0 +1,21 @@
+:root {
+  --blue-dark: #2C4C84;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+.quill {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ql-container {
+  flex: 1;
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Find Program",
+  "step1_title": "Hvad er dit mål?",
+  "step1_choice1": "Tabe Mig",
+  "step1_choice2": "Opbygge Muskler",
+  "step1_choice3": "Blive Stærkere",
+  "step2_title": "Hvad er dit niveau?",
+  "step2_choice1": "Begynder",
+  "step2_choice2": "Øvet",
+  "step2_choice3": "Avanceret",
+  "program_suggestions": "Program Forslag",
+  "your_goal": "Dit Mål",
+  "your_level": "Dit Niveau",
+  "no_programs_found": "Ingen programmer fundet",
+  "choose_again_button": "Vælg Igen"
+}

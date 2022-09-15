@@ -1,0 +1,16 @@
+{
+  "title": "Find Program",
+  "step1_title": "What is your goal?",
+  "step1_choice1": "Lose Fat",
+  "step1_choice2": "Build Muscle",
+  "step1_choice3": "Get Stronger",
+  "step2_title": "What is your level?",
+  "step2_choice1": "Beginner",
+  "step2_choice2": "Intermediate",
+  "step2_choice3": "Advanced",
+  "program_suggestions": "Program Suggestions",
+  "your_goal": "Your Goal",
+  "your_level": "Your Level",
+  "no_programs_found": "No programs found",
+  "choose_again_button": "Choose again"
+}

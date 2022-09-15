@@ -1,0 +1,12 @@
+{
+  "title": "Bestil Undervisning",
+  "section1_title": "Hvilke former for undervisning ønsker du at bestille?",
+  "section2_title": "Hvor mange timer ønsker du at bestille?",
+  "section2_desc": "Hvis du er usikker, lad feltet stå tomt.",
+  "section2_field_label": "ANTAL TIMER",
+  "section2_total_price": "Total pris",
+  "section3_title": "Dine Oplysninger",
+  "section3_name": "Navn",
+  "section3_message": "Besked",
+  "send_order_button": "Send Bestilling"
+}

@@ -1,0 +1,23 @@
+import AWS from "aws-sdk";
+const simpleParser = require("mailparser").simpleParser;
+const path = require("path");
+const { config } = require("dotenv");
+import mongoose from "mongoose";
+import Mail from "../models/Mail";
+import { MailService } from "../services/MailService";
+
+config({
+  path: path.join(__dirname, "../../.env"),
+});
+
+const handler = async function () {
+  const mails: any[] | undefined = await MailService.receiveMail();
+
+  if (mails?.length) {
+    console.log("Inserted " + mails.length + " mails");
+  }
+
+  process.exit(0);
+};
+
+handler();

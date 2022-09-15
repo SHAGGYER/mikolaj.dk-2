@@ -1,0 +1,14 @@
+{
+  "title": "Kropsfedt Lommeregner",
+  "desc": "Der bliver brugt US. Navy Seal Formel",
+  "height_cm": "Højde i cm",
+  "age": "Alder",
+  "gender": "Køn",
+  "male": "Mand",
+  "female": "Kvinde",
+  "neck_size_cm": "Nakke Omkreds i cm",
+  "waist_size_cm": "Talje Omkreds i cm",
+  "hip_size_cm": "Hofte Omkreds i cm",
+  "your_body_fat": "Dit Kropsfedt",
+  "calculate_button": "Regn dit kropsfedt"
+}

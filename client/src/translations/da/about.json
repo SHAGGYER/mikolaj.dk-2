@@ -1,0 +1,13 @@
+{
+  "title": "Om Mig",
+  "about_subtitle1": "Den korte udgave",
+  "about_text1": "Jeg hedder Mikolaj Marciniak, og jeg er en Software Ingeniør. Jeg var født den 30-06-1991 i Lodz, Polen. Jeg har også boet i USA. Lige i øjeblikket bor jeg i Danmark, hvor jeg gennemførte uddannelsen som Webudvikler. Mine hobbier er fodbold, madlavning, fitness og god musik. Jeg tilbringer fritiden med min familie, venner og jeg arbejder på personline projekter.",
+  "about_subtitle2": "Tidlig Opvækst",
+  "about_text2": "Jeg har købt min første bog om programmering da jeg var 10 år gammel. Den handlede om HTML og kun det. Ikke noget design, ikke noget interaktivitet. Jeg legede med den nye hobby i noget tid. Da jeg var 15 år gammel, købt jeg en lille bog om PHP. Det var serverside programmering. Endelig kunne jeg lave dynamiske hjemmesider, men jeg brød mig stadig ikke om JavaScript. Og på den måde programmerede jeg små moduler til en forum app, som var min drøm at lave.",
+  "about_subtitle3": "Udvikling",
+  "about_text3": "Da jeg var 15, begyndte det for alvor. Jeg opdagede Laravel PHP framework, og det var der, at jeg begyndte at programmere næsten hver dag. I starten var det kun PHP, HTML og CSS jeg brugte, men med tiden så jeg JavaScripts brugbarhed. Jeg begyndte at lære VueJS og på den måde lærte jeg om SPAs (Single Page Applications).",
+  "about_subtitle4": "Erfaring",
+  "about_text4": "Da jeg var 27, begyndte jeg at lære React. Det var også på samme tidspunkt, at jeg lærte NodeJS. Det var noget helt andet end PHP. Jeg forstod heller ikke i starten, hvordan en NodeJS skal deployes. Så fortsatte jeg min eventyr, idet jeg startede med at lære Linux Server.",
+  "about_subtitle5": "Nu",
+  "about_text5": "Da jeg var 28, startede jeg på min Webudvikler uddannelse. Indtil videre har al min erfaring været selvlært. Det var svært at finde job, fordi mange firmaer krævede et uddannelsesbevis. Men på grund af min store erfaring, var jeg så heldig at afslutte min uddannelse et halvt år tidligere. Jeg gik en klasse op og tog eksamenen. Jeg bestod med to flotte 12 taller. En måned efter min dimmitering, fik jeg et job hos en startup. Jeg arbejdede der i tre måneder, hvor jeg fik rigtig meget teamwork erfaring."
+}

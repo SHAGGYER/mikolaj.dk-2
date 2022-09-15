@@ -1,0 +1,8 @@
+{
+  "title": "BMI Lommeregner",
+  "height_cm": "Højde i cm",
+  "weight_kg": "Vægt i kg",
+  "calculate_button": "Regn dit BMI",
+  "your_bmi": "Dit BMI",
+  "your_weight_level": "Dit Vægtsniveau"
+}

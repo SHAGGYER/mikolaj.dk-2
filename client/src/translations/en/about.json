@@ -1,0 +1,13 @@
+{
+  "title": "About Me",
+  "about_subtitle1": "The short version",
+  "about_text1": "My name is Mikolaj Marciniak, and I'm a Web Developer. I was born on 30/06 in Lodz, Poland. I also lived in the USA for two years. As of now I live in Denmark and I have done for 15 years. My hobbies include soccer, cooking, fitness og good music. I spend free time with friends and family, and I work on personal projects.",
+  "about_subtitle2": "Childhood",
+  "about_text2": "I bought my first book on programming when I was 10 years old. It was about HTML. No design, no interactivity. I played with this new hobby for some time. When I was 15 years old, I bought a short book about PHP. It was about server-side programming. At last I could create dynamic websites, but I still didn't think highly of JavaScript.",
+  "about_subtitle3": "Web Development",
+  "about_text3": "When I was 25, I began serious development. I discovered Laravel PHP framework, and it was a turning point for me because it's where I began programming every day, with a desire to start a career. In the start it was only with PHP, HTML and CSS, but with time I realized that JavaScript was good as well. I began learning VueJS and in this way I learned about SPAs (Single Page Applications).",
+  "about_subtitle4": "My Experience",
+  "about_text4": "At 27, I began learning React. It was also about at that time that I learned NodeJS. It was totally different from PHP in many ways. I also did not understand in the beginning how a NodeJS app is deployed. Then I continued my adventure, as I learned Linux Server management.",
+  "about_subtitle5": "Right Now",
+  "about_text5": "Not so long ago, I started with my official Web Developer school education. So far I had been self-taught. It was hard to find a job, because many companies wanted to see an official certificate. But because of my experience, I was lucky to finish my education a half year earlier, where I passed with an A+. One month after graduation, I got a job at a startup where I worked for 3 months, and there I received team-work experience."
+}

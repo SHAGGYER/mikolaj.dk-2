@@ -1,0 +1,21 @@
+{
+  "title": "TDEE Lommeregner",
+  "gender": "Køn",
+  "male": "Mand",
+  "female": "Kvinde",
+  "height_cm": "Højde i cm",
+  "weight_kg": "Vægt i kg",
+  "age": "Alder",
+  "activity_level": "Aktivitetsniveau",
+  "choose_a_level": "Vælg ét niveau",
+  "level_1": "Ikke Aktiv",
+  "level_2": "Lidt Aktiv (1-3 gange om ugen)",
+  "level_3": "Aktiv (3-5 gange om ugen)",
+  "level_4": "Meget Aktiv (6-7 gange om ugen)",
+  "level_5": "Ekstrem Aktiv (2 gange om dagen)",
+  "calculate_button": "Regn Dit TDEE",
+  "maintenance": "Vedligholdelse",
+  "gain_weight": "Tag På",
+  "lose_weight": "Tab Dig",
+  "calories_per_day": "kalorier om dagen"
+}

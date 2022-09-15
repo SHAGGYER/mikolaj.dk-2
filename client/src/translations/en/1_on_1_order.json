@@ -1,0 +1,12 @@
+{
+  "title": "Order Education",
+  "section1_title": "Which forms for education do you wish to order?",
+  "section2_title": "How many hours do you wish to order?",
+  "section2_desc": "If unsure, leave empty.",
+  "section2_field_label": "Total Hours",
+  "section2_total_price": "Total Price",
+  "section3_title": "Your Information",
+  "section3_name": "Name",
+  "section3_message": "Message",
+  "send_order_button": "Send Order"
+}

@@ -1,0 +1,18 @@
+{
+  "title": "My Cart",
+  "cart_empty": "Your cart is empty",
+  "delivery": "Delivery",
+  "total": "TOTAL",
+  "next_button": "Next",
+  "delete": "Delete",
+  "name": "Name",
+  "address": "Address",
+  "city": "City",
+  "zip": "Zip",
+  "delivery_only_dk": "Delivery only in Denmark.",
+  "payment_button": "Payment",
+  "payment": "Payment",
+  "using_saved_card": "Your saved card will be used.",
+  "pay_button": "Pay",
+  "update_card_button": "Update Card"
+}

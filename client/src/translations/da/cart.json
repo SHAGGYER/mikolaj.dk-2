@@ -1,0 +1,18 @@
+{
+  "title": "Min Kurv",
+  "cart_empty": "Din kurv er tom",
+  "delivery": "Levering",
+  "total": "TOTAL",
+  "next_button": "Videre",
+  "delete": "Slet",
+  "name": "Navn",
+  "address": "Adresse",
+  "city": "By",
+  "zip": "Postnummer",
+  "delivery_only_dk": "Leveres kun i Danmark.",
+  "payment_button": "Betaling",
+  "payment": "Betaling",
+  "using_saved_card": "Bruger dit gemte kort.",
+  "pay_button": "Betal",
+  "update_card_button": "Opdatér Kort"
+}

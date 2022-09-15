@@ -1,0 +1,14 @@
+{
+  "title": "Body Fat Calculator",
+  "desc": "US. Navy Seal Formula is being used",
+  "height_cm": "Height in cm",
+  "age": "Age",
+  "gender": "Gender",
+  "male": "Man",
+  "female": "Woman",
+  "neck_size_cm": "Neck Circumference in cm",
+  "waist_size_cm": "Waist Circumference in cm",
+  "hip_size_cm": "Hip Circumference in cm",
+  "your_body_fat": "Your Body Fat",
+  "calculate_button": "Calculate your body fat"
+}
