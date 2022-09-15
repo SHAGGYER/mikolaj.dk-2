@@ -148,6 +148,11 @@ export class CoursesController {
     res.sendStatus(204);
   }
 
+  static async getCourses(req, res) {
+    const courses = await Course.find({ published: true });
+    return res.send({ rows: courses });
+  }
+
   static async browseCourses(req, res) {
     const perPage = 10;
     const page = req.query.page ? parseInt(req.query.page as string) - 1 : 0;

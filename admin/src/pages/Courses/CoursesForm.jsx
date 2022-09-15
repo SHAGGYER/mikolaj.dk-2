@@ -148,7 +148,10 @@ export default function CoursesForm({ row }) {
       cogoToast.success(
         `Course ${usedRow ? "updated" : "created"} successfully`
       );
-      setUsedRow(data);
+
+      if (!usedRow._id) {
+        setUsedRow(data);
+      }
     } catch (e) {
       if (e.response.status === 450) {
         setErrors(e.response.data.errors);

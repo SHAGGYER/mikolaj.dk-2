@@ -3,13 +3,23 @@ import Dropdown from "./Dropdown";
 
 function CourseSettingsDropdown({ course, onCourseChanged }) {
   const [published, setPublished] = useState(course.published);
+  const [clicked, setClicked] = useState(false);
   const id = useId();
 
   useEffect(() => {
-    const _course = { ...course };
-    _course.published = published;
-    onCourseChanged(_course);
-  }, [published]);
+    if (clicked) {
+      console.log("here");
+      const _course = { ...course };
+      _course.published = published;
+      onCourseChanged(_course);
+      setClicked(false);
+    }
+  }, [published, clicked]);
+
+  const handleOnChange = (checked) => {
+    setPublished(checked);
+    setClicked(true);
+  };
 
   return (
     <div style={{ position: "absolute", top: 10, right: 10 }}>
@@ -25,7 +35,7 @@ function CourseSettingsDropdown({ course, onCourseChanged }) {
                 type="checkbox"
                 id={id}
                 checked={!!published}
-                onChange={(e) => setPublished(e.target.checked)}
+                onChange={(e) => handleOnChange(e.target.checked)}
               />
             </div>
           </div>

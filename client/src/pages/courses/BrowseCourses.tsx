@@ -28,7 +28,7 @@ function BrowseCourses(props) {
 
   const getCourses = async () => {
     const { data } = await HttpClient().get<{ rows: ICourse[] }>(
-      "/api/courses"
+      "/api/courses/get-courses"
     );
     setCourses(data.rows);
   };
