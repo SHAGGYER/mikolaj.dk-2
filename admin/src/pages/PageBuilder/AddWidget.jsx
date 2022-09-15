@@ -1,5 +1,5 @@
 import React from "react";
-import { WIDGET } from "../../../../client-common/PageBuilder/common";
+import { WIDGET } from "../../components/PageBuilder/common";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

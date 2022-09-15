@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import RichText from "./Widgets/RichText";
-import Previewer from "../../../../client-common/PageBuilder/Previewer";
+import Previewer from "../../components/PageBuilder/Previewer";
 import { MODE } from "./common";
-import { WIDGET } from "../../../../client-common/PageBuilder/common";
+import { WIDGET } from "../../components/PageBuilder/common";
 import Picture from "./Widgets/Picture";
 import Row from "./Widgets/Row";
 import { v4 } from "uuid";

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import AddMenu from "../../admin/src/pages/PageBuilder/AddMenu";
-import AddWidget from "../../admin/src/pages/PageBuilder/AddWidget";
+import AddMenu from "../../pages/PageBuilder/AddMenu";
+import AddWidget from "../../pages/PageBuilder/AddWidget";
 import { WIDGET } from "./common";
-import { MODE } from "../../admin/src/pages/PageBuilder/common";
+import { MODE } from "../../pages/PageBuilder/common";
 
 const ActionButtons = styled.div`
   position: absolute;
