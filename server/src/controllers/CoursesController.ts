@@ -6,6 +6,7 @@ import CourseSection from "../models/CourseSection";
 import UserCourse from "../models/UserCourse";
 import mongoose from "mongoose";
 import UserLesson from "../models/UserLesson";
+import jwt from "jsonwebtoken";
 
 export class CoursesController {
   static async deleteCourses(req, res) {
@@ -195,6 +196,18 @@ export class CoursesController {
     const lesson = await Lesson.findById(req.query.lessonId);
     if (!lesson) {
       return res.status(400).send("No file found");
+    }
+
+    const { userId } = <any>(
+      jwt.verify(req.query.token, process.env.JWT_SECRET!)
+    );
+
+    const userCourse = await UserCourse.findOne({
+      courseId: lesson.courseId,
+      userId,
+    });
+    if (!lesson.freePreview && !userCourse) {
+      return res.status(400).send("Not authorized");
     }
 
     const videoPath = path.join(

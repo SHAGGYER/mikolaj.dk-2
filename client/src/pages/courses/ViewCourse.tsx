@@ -205,8 +205,9 @@ function ViewCourse(props) {
   };
 
   const selectLesson = async (lesson: Lesson, _userCourse?: any) => {
-    setSelectedLesson(lesson);
     let usedCourse = userCourse || _userCourse;
+
+    setSelectedLesson(lesson);
 
     if (usedCourse && lesson) {
       /*
