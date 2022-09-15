@@ -103,8 +103,9 @@ export class CoursesController {
   static async updateSectionOrder(req, res) {
     for (let section of req.body.sections) {
       const dbSection = await CourseSection.findById(section.id);
-      dbSection!.order = section.order;
-      await dbSection!.save();
+      if (!dbSection) continue;
+      dbSection.order = section.order;
+      await dbSection.save();
     }
 
     res.sendStatus(200);

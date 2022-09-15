@@ -233,7 +233,6 @@ export default function CoursesForm({ row }) {
 
     const lesson = [...lessons].find((x) => x.uuid === uuid);
     dragSectionIdLesson.current = lesson.sectionId;
-    console.log("drag enter section id", dragSectionIdLesson.current);
   };
 
   const dragLeaveLesson = (e, sectionId) => {};
@@ -256,6 +255,19 @@ export default function CoursesForm({ row }) {
     copyListItems.splice(newIndex, 0, dragItemContent);
 
     /*
+     * Reset
+     * */
+
+    dragSection.current = null;
+    dragOverSection.current = null;
+    dragSectionIdLesson.current = null;
+    dragOverLesson.current = null;
+
+    setLessons(copyListItems);
+    setDragSectionId(null);
+    setDragLessonId(null);
+
+    /*
      * Order
      * */
 
@@ -272,20 +284,6 @@ export default function CoursesForm({ row }) {
         };
       }),
     };
-
-    /*
-     * Reset
-     * */
-
-    dragSection.current = null;
-    dragOverSection.current = null;
-    dragSectionIdLesson.current = null;
-    dragOverLesson.current = null;
-
-    setLessons(copyListItems);
-    setDragSectionId(null);
-    setDragLessonId(null);
-
     await HttpClient().put("/api/courses/update-lesson-order", body);
   };
 
@@ -310,7 +308,7 @@ export default function CoursesForm({ row }) {
 
   const dragLeave = (e, sectionId) => {};
 
-  const drop = (e) => {
+  const drop = async (e) => {
     const copyListItems = [...sections];
     const dragItemContent = copyListItems[dragSection.current];
 
@@ -324,6 +322,17 @@ export default function CoursesForm({ row }) {
     copyListItems.forEach((x, i) => {
       x.order = i;
     });
+
+    const body = {
+      sections: copyListItems.map((x) => {
+        return {
+          order: x.order,
+          id: x._id,
+        };
+      }),
+    };
+    await HttpClient().put("/api/courses/update-section-order", body);
+
     setSections(copyListItems);
     setDragSectionId(null);
     setDragLessonId(null);
@@ -422,7 +431,14 @@ export default function CoursesForm({ row }) {
                   <Button
                     onClick={() => {
                       const newLessons = [...lessons];
-                      newLessons.splice(sectionIndex, 0, {
+                      const thisLessons = [
+                        ...getLessonsForSection(section._id),
+                      ];
+                      const lastThisLesson =
+                        thisLessons[thisLessons.length - 1];
+                      const indexThisLesson =
+                        newLessons.indexOf(lastThisLesson);
+                      newLessons.splice(indexThisLesson + 1, 0, {
                         sectionId: section?._id,
                         courseId: usedRow?._id,
                         name: "",

@@ -74,9 +74,7 @@ export default function BrowseCourses(props) {
 
   const openViewDialog = async (row) => {
     const result = await CustomDialog(<CoursesForm row={row} />);
-    if (result) {
-      await fetchRows(1);
-    }
+    await fetchRows(1);
   };
 
   const ContextActions = React.useMemo(() => {
