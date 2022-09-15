@@ -171,7 +171,11 @@ export default function CoursesForm({ row }) {
       cogoToast.success(
         `Course Section ${section ? "updated" : "created"} successfully`
       );
-      setUsedRow(data);
+
+      const _sections = [...sections];
+      const index = _sections.indexOf(section);
+      _sections[index] = data;
+      setSections(_sections);
     } catch (e) {
       if (e.response.status === 450) {
         setErrors(e.response.data.errors);
@@ -180,6 +184,7 @@ export default function CoursesForm({ row }) {
   };
 
   const saveLesson = async (section, lesson) => {
+    console.log(section);
     try {
       const payload = {
         name: lesson.name,
