@@ -67,7 +67,7 @@ const LearnMoreButton = styled(SecondaryButtonStyle)`
   }
 `;
 
-const HOURLY_RATE = 135;
+const HOURLY_RATE = 200;
 
 export default function LearningPricing() {
   const { t } = useTranslation("one_on_one_pricing");
