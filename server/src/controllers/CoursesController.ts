@@ -203,13 +203,18 @@ export class CoursesController {
       return res.status(400).send("No file found");
     }
 
-    const { userId } = <any>(
-      jwt.verify(req.query.token, process.env.JWT_SECRET!)
-    );
+    let _userId;
+    try {
+      const { userId } = <any>(
+        jwt.verify(req.query.token, process.env.JWT_SECRET!)
+      );
+
+      _userId = userId;
+    } catch (e) {}
 
     const userCourse = await UserCourse.findOne({
       courseId: lesson.courseId,
-      userId,
+      _userId,
     });
     if (!lesson.freePreview && !userCourse) {
       return res.status(400).send("Not authorized");
