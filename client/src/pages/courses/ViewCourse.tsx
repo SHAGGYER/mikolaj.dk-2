@@ -190,7 +190,11 @@ function ViewCourse(props) {
   };
 
   const enroll = async () => {
-    console.log(course);
+    if (!user) {
+      window.location.href = "/login";
+      return;
+    }
+
     const result = await CustomDialog(<EnrollDialog total={course?.price} />);
     if (result) {
       const { data } = await HttpClient().post("/api/courses/enroll", {
@@ -243,7 +247,7 @@ function ViewCourse(props) {
     <Wrapper>
       <Container>
         <Subtitle>{course?.name}</Subtitle>
-        {!userCourse && user && (
+        {!userCourse && (
           <div
             style={{ position: "relative", zIndex: 1, marginBottom: "1rem" }}
           >
