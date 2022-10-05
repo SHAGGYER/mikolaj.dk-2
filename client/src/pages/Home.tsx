@@ -27,7 +27,6 @@ export default function Home() {
       />
       <Header2 />
       <AboutPlatform />
-      <Projects />
       <Hire />
       <Skills />
       <ActivityTimeline />
