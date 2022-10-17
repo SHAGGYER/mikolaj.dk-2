@@ -1,10 +1,8 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import TextField from "./TextField";
 import { useClickOutside } from "../hooks/ClickOutside";
 import Button from "./Button";
 import HttpClient from "../utilities/HttpClient";
-import { FloatingLabelInput } from "react-floating-text-input/src/App";
 import FloatingTextField from "./FloatingTextField";
 
 const Container = styled.section`
