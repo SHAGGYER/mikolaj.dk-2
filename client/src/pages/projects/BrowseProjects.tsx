@@ -46,6 +46,10 @@ function BrowseProjects(props) {
     setProjects(data.content);
   };
 
+  const redirect = (path) => {
+    window.open(path, "_blank");
+  };
+
   return (
     <>
       <Wrapper>
@@ -56,8 +60,18 @@ function BrowseProjects(props) {
               <ProjectStyled key={index}>
                 <h3>{project.title}</h3>
                 <article>
-                  <SecondaryButton mini>View Github</SecondaryButton>
-                  <SecondaryButton mini>View Demo</SecondaryButton>
+                  <SecondaryButton
+                    mini
+                    onClick={() => redirect(project.githubUrl)}
+                  >
+                    View Github
+                  </SecondaryButton>
+                  <SecondaryButton
+                    mini
+                    onClick={() => redirect(project.demoUrl)}
+                  >
+                    View Demo
+                  </SecondaryButton>
                 </article>
               </ProjectStyled>
             ))}
