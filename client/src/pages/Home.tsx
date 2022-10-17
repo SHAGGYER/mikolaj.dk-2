@@ -6,7 +6,6 @@ import Skills from "./about/skills";
 import { Header2 } from "components/Home/Header2";
 import ActivityTimeline from "components/Home/ActivityTimeline";
 import Meta from "components/Meta";
-import Projects from "components/Home/Projects";
 
 export default function Home() {
   const { setMeta } = useContext(PublicContext);

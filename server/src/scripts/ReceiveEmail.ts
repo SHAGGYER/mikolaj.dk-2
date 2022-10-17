@@ -1,5 +1,3 @@
-import AWS from "aws-sdk";
-const simpleParser = require("mailparser").simpleParser;
 const path = require("path");
 const { config } = require("dotenv");
 import mongoose from "mongoose";
@@ -11,6 +9,7 @@ config({
 });
 
 const handler = async function () {
+  mongoose.connect(process.env.MONGODB_URI!, () => console.log("Connected to MongoDB"))
   const mails: any[] | undefined = await MailService.receiveMail();
 
   if (mails?.length) {

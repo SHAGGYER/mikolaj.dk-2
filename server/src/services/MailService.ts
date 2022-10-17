@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import AWS from "aws-sdk";
 import Mail from "../models/Mail";
 const simpleParser = require("mailparser").simpleParser;
@@ -31,9 +30,9 @@ export class MailService {
 
         mails.push({
           from: email.from.value[0].address,
-          to: process.env.MAIL_FROM,
+          to: email.to.value[0].address,
           subject: email.subject,
-          message: email.text,
+          message: email.html || email.textAsHtml,
           date: email.date,
           folder: "inbox",
           seen: false,
@@ -43,7 +42,6 @@ export class MailService {
       }
     }
     const objects = data.Contents.map((obj) => ({ Key: obj.Key }));
-    console.log(data.Contents);
 
     if (objects.length) {
       await s3
@@ -52,7 +50,10 @@ export class MailService {
     }
 
     if (mails.length) {
-      await Mail.insertMany(mails);
+      for (let mail of mails) {
+        const newMail = new Mail(mail)
+        await newMail.save()
+      }
       await MailService.sendMail({
         to: "mikolaj73@gmail.com",
         subject: "New mails received for *.mikolaj.dk",
