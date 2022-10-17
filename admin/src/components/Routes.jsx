@@ -9,6 +9,8 @@ import BrowseMail from "../pages/Mail/BrowseMail";
 import BrowseHobbies from "../pages/Hobbies/BrowseHobbies";
 import PageBuilder from "../pages/PageBuilder/PageBuilder";
 import BrowseCourses from "../pages/Courses/BrowseCourses";
+import CreateProject from "../pages/Projects/CreateProject";
+import BrowseProjects from "../pages/Projects/BrowseProjects";
 
 function Routes(props) {
   return (
@@ -20,6 +22,7 @@ function Routes(props) {
       <RestrictedRoute path="/hobbies" component={BrowseHobbies} />
       <RestrictedRoute path="/page-builder" component={PageBuilder} />
       <RestrictedRoute path="/courses" component={BrowseCourses} />
+      <RestrictedRoute path="/projects" component={BrowseProjects} />
       <Route path="/signin">
         <Login />
       </Route>

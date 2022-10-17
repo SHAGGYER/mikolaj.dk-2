@@ -1,6 +1,19 @@
-import AppSettings, { IAppSettings } from "../models/AppSettings";
+import AppSettings from "../models/AppSettings";
+import Project from "../models/Project";
 
 export class AdminController {
+  public static async getProjects(req, res) {
+    const projects = await Project.find();
+    res.send({ content: projects });
+  }
+
+  public static async createProject(req, res) {
+    const project = new Project(req.body);
+    await project.save();
+
+    res.send({ content: project });
+  }
+
   public static async updateYoutubeViews(req, res) {
     const settings = await AppSettings.findOne();
     if (!settings) return res.sendStatus(500);

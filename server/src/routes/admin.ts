@@ -4,10 +4,12 @@ import { IsAdmin } from "../middleware/IsAdmin";
 
 const router = express.Router();
 
+router.post("/create-project", IsAdmin, AdminController.createProject);
+router.get("/projects", AdminController.getProjects);
 router.put(
-    "/update-youtube-views",
-    IsAdmin,
-    AdminController.updateYoutubeViews
+  "/update-youtube-views",
+  IsAdmin,
+  AdminController.updateYoutubeViews
 );
 router.put(
   "/update-homepage-image",

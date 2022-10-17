@@ -38,6 +38,14 @@ export default function AboutSubmenu(): ReactElement {
                 <article>
                   <div
                     className="link"
+                    onClick={() => redirectTo("/about/projects")}
+                  >
+                    Projects
+                  </div>
+                </article>
+                <article>
+                  <div
+                    className="link"
                     onClick={() => redirectTo("/about/hobbies")}
                   >
                     Hobbies

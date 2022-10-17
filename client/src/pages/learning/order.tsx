@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text } from "components/UI/Text";
+import { Wrapper } from "components/UI/Wrapper";
 import { Container, SecondaryButton, Spacer } from "components/UI";
 import TextField from "components/UI/TextField";
 import Alert from "components/UI/Alert";
@@ -8,7 +9,6 @@ import PublicContext from "contexts/PublicContext";
 import TextArea from "components/UI/TextArea";
 import styled from "styled-components";
 import cogoToast from "cogo-toast";
-import { Wrapper } from "components/UI/Wrapper";
 import { Title } from "components/UI/Title";
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/reducers/Auth";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../../images/logo.svg";
 
 const StyledSidebar = styled.nav`
   min-width: 300px;
@@ -99,6 +98,11 @@ function Sidebar(props) {
     {
       label: "Visitors",
       to: "/visitors",
+      icon: "fa-solid fa-users",
+    },
+    {
+      label: "Projects",
+      to: "/projects",
       icon: "fa-solid fa-users",
     },
     {

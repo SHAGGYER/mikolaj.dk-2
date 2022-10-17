@@ -43,6 +43,7 @@ import Timeline from "./pages/about/Timeline";
 import BrowseCourses from "./pages/courses/BrowseCourses";
 import { ViewComponent } from "jodit/types/core/component";
 import ViewCourse from "./pages/courses/ViewCourse";
+import BrowseProjects from "./pages/projects/BrowseProjects";
 
 const Wrapper = styled.div<any>`
   min-height: 100vh;
@@ -318,6 +319,9 @@ function MyApp() {
                   <Route path="/gaming/launcher">
                     <Launcher />
                   </Route>
+                  <Route path="/about/projects">
+                    <BrowseProjects />
+                  </Route>
                   <Route path="/about/hobbies">
                     <MyHobbies />
                   </Route>
@@ -366,6 +370,7 @@ function MyApp() {
                   <Route path="/courses/:id">
                     <ViewCourse />
                   </Route>
+
                   <Route path="/" exact>
                     <Home />
                   </Route>
