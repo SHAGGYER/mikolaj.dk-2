@@ -41,9 +41,7 @@ export class MailController {
 
   public static async downloadAttachment(req, res) {
     const attachment = await MailAttachment.findById(req.query.id);
-    res.download(
-      path.join(__dirname, "../../uploads/attachments", attachment.path)
-    );
+    res.download(attachment.path);
   }
 
   public static async uploadAttachment(req, res) {
