@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import ReactQuill from "react-quill";
 import { CustomDialog, useDialog } from "react-st-modal";
 import MediaExplorer from "../../components/MediaExplorer";
 import "react-quill/dist/quill.snow.css";
-import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import HttpClient from "../../utilities/HttpClient";
 import FloatingTextField from "../../components/FloatingTextField";
-import { FloatingLabelInput } from "react-floating-text-input/index";
-import TextArea from "../../components/TextArea";
 import styled from "styled-components";
 import JoditEditor from "jodit-react";
+
 const JoditContainer = styled.div`
   margin-bottom: 1rem;
   margin-top: 1rem;
