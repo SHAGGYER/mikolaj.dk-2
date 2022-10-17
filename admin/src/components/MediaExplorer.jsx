@@ -80,8 +80,8 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
   }, []);
 
   const getImages = async () => {
-    const { data } = await HttpClient().get("/api/media");
-    setImages(data);
+    const { data } = await HttpClient().get("/api/admin/get-media");
+    setImages(data.content);
   };
 
   const onSubmit = async (event) => {
@@ -90,9 +90,9 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("image", file);
-    const response = await HttpClient().post("/api/media", formData);
-    setImages([response.data, ...images]);
+    formData.append("file", file);
+    const response = await HttpClient().post("/api/admin/upload-media", formData);
+    setImages([response.data.content, ...images]);
   };
 
   const deleteImage = async (imageId) => {
@@ -107,9 +107,8 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
   };
 
   const handleOnSelect = (image) => {
-    console.log(image);
-    onSelect("/uploads/" + image.filePath);
-    dialog.close("/uploads/" + image.filePath);
+    onSelect(image.filePath);
+    dialog.close(image.filePath);
   };
 
   return (
@@ -131,7 +130,7 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
             <Image
               height={browser ? "150px" : "100px"}
               width={browser ? "150px" : "100%"}
-              src={import.meta.env.VITE_API_URL + "/uploads/" + image.filePath}
+              src={import.meta.env.VITE_API_URL + image.filePath}
               alt={image.originalName}
               onClick={() =>
                 onSelect
@@ -139,7 +138,6 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
                   : browser
                   ? openBigImageDialog(
                       import.meta.env.VITE_API_URL +
-                        "/uploads/" +
                         image.filePath
                     )
                   : undefined

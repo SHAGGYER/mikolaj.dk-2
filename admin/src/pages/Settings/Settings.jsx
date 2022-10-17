@@ -14,7 +14,6 @@ const MediaExplorerDialog = () => {
   const dialog = useDialog();
 
   const onSelect = (path) => {
-    console.log("path", path);
     dialog.close(path);
   };
 
@@ -46,8 +45,8 @@ export default function Settings() {
   }, [settings]);
 
   const updateAvailableForWork = async () => {
-    await HttpClient().put("/api/admin/update-available-for-work", {
-      availableForWork,
+    await HttpClient().post("/api/admin/update-app-settings", {
+      availableForWork: availableForWork ? 1 : 0,
     });
   };
 
@@ -58,10 +57,9 @@ export default function Settings() {
 
   const openUpdateHomepageHeaderImageDialog = async () => {
     const result = await CustomDialog(<MediaExplorerDialog />);
-    console.log(result);
 
     if (result) {
-      await HttpClient().put("/api/admin/update-homepage-image", {
+      await HttpClient().post("/api/admin/update-app-settings", {
         homepageHeaderImage: result,
       });
       const _settings = { ...settings };
@@ -74,8 +72,8 @@ export default function Settings() {
     const result = await CustomDialog(<MediaExplorerDialog />);
 
     if (result) {
-      await HttpClient().put("/api/admin/update-about-platform-image", {
-        image: result,
+      await HttpClient().post("/api/admin/update-app-settings", {
+        homepageAboutPlatformImage: result,
       });
       const _settings = { ...settings };
       _settings.homepageAboutPlatformImage = result;
@@ -84,7 +82,7 @@ export default function Settings() {
   };
 
   const updateYoutubeViews = async () => {
-    await HttpClient().put("/api/admin/update-youtube-views", { youtubeViews });
+    await HttpClient().post("/api/admin/update-app-settings", { youtubeViews: parseInt(youtubeViews) });
   };
 
   return (

@@ -26,7 +26,7 @@ function App() {
   }, [authUser]);
 
   const init = async () => {
-    const { data } = await HttpClient().get("/api/auth/init");
+    const { data } = await HttpClient().get("/api/auth/admin/init");
     dispatch(setAuthUser(data.user));
     dispatch(setSettings(data.settings));
     setInitiated(true);
