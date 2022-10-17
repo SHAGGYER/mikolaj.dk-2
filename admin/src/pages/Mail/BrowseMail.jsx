@@ -10,6 +10,8 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import cogoToast from "cogo-toast";
 import styled from "styled-components";
 import ComposeMail from "./ComposeMail";
+import moment from "moment";
+import NewEmailAccountPopover from "../../components/NewEmailAccountPopover";
 
 const MailContainer = styled.article`
   display: flex;
@@ -25,10 +27,12 @@ const MailContainer = styled.article`
 
     h3 {
       font-size: 1.27rem;
-      margin-bottom: 1.8rem;
+      margin-bottom: 0.25rem;
     }
 
     ul {
+      margin-bottom: 1rem;
+
       li {
         border: 1px solid #ccc;
         padding: 0.5rem;
@@ -71,6 +75,10 @@ const allColumns = [
     selector: (key) => key.subject,
     width: "250px",
   },
+  {
+    name: "Date",
+    selector: (key) => moment(key.date).format("DD-MM-YYYY k:mm"),
+  },
 ];
 
 const MODE = {
@@ -78,23 +86,26 @@ const MODE = {
   VIEW: "view",
 };
 
+const FOLDERS = ["inbox", "trash", "sent"];
+
 function BrowseMail(props) {
   const [folder, setFolder] = useState("inbox");
   const [page, setPage] = useState(1);
+  const [mailAccounts, setMailAccounts] = useState([]);
+  const [selectedMailAccount, setSelectedMailAccount] = useState({});
   const [mode, setMode] = useState(MODE.BROWSE);
   const [selectedMail, setSelectedMail] = useState(null);
   const [rows, setRows] = useState([]);
   const [totalRows, setTotalRows] = useState(0);
   const [toggleCleared, setToggleCleared] = React.useState(false);
   const [selectedRows, setSelectedRows] = React.useState([]);
-  const [showOnlyVerified, setShowOnlyVerified] = useState(false);
-  const [showOnlyWithPhoto, setShowOnlyWithPhoto] = useState(false);
   const [columns, setColumns] = useState([]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setPageTitle("Mail"));
+    fetchMailAccounts();
   }, []);
 
   useEffect(() => {
@@ -118,20 +129,34 @@ function BrowseMail(props) {
   }, []);
 
   useEffect(() => {
-    fetchRows(1, "inbox");
-  }, [showOnlyVerified, showOnlyWithPhoto]);
+    if (selectedMailAccount) {
+      fetchRows(1, "inbox", selectedMailAccount);
+      setFolder("inbox");
+      setMode(MODE.BROWSE);
+    }
+  }, [selectedMailAccount]);
 
-  const fetchRows = async (page, folder) => {
+  const fetchMailAccounts = async () => {
+    const { data } = await HttpClient().get("/api/mail/mail-accounts");
+    setMailAccounts(data.content);
+    if (data.content.length) {
+      setSelectedMailAccount(data.content[0]);
+    }
+
+    await fetchRows(1, "inbox", data.content[0]);
+  };
+
+  const fetchRows = async (page, folder, account) => {
     const { data } = await HttpClient().get(
-      `/api/mail?page=${page}&folder=${folder}`
+      `/api/mail?page=${page}&folder=${folder}&mailAccount=${account.address}`
     );
-    setPage(page)
+    setPage(page);
     setRows(data.rows);
     setTotalRows(data.totalRows);
   };
 
   const handlePageChange = (page) => {
-    fetchRows(page, folder);
+    fetchRows(page, folder, selectedMailAccount);
   };
 
   const openViewDialog = async (row) => {
@@ -210,8 +235,8 @@ function BrowseMail(props) {
   };
 
   const changeFolder = async (folder) => {
-    setRows([])
-    await fetchRows(1, folder);
+    setRows([]);
+    await fetchRows(1, folder, selectedMailAccount);
     setFolder(folder);
     setMode(MODE.BROWSE);
   };
@@ -219,9 +244,7 @@ function BrowseMail(props) {
   const deleteRows = async (ids) => {
     await HttpClient().post(`/api/mail/delete`, { ids });
     cogoToast.success(`Successfully deleted ${selectedRows.length} rows`);
-    setRows([])
-    await fetchRows(1, "inbox");
-
+    await fetchRows(1, "inbox", selectedMailAccount);
   };
 
   const restoreMail = async (ids) => {
@@ -232,7 +255,7 @@ function BrowseMail(props) {
 
   const deleteMailsPermanently = async (ids) => {
     await HttpClient().post("/api/mail/delete-permanently", { ids });
-    await fetchRows(1, "trash");
+    await fetchRows(1, "trash", selectedMailAccount);
     cogoToast.success("Successfully restored mails");
   };
 
@@ -243,7 +266,15 @@ function BrowseMail(props) {
   };
 
   const composeMail = async (row = null) => {
-    await CustomDialog(<ComposeMail row={row} />);
+    await CustomDialog(
+      <ComposeMail row={row} fromAddress={selectedMailAccount.address} />
+    );
+  };
+
+  const onMailAccountCreated = (account) => {
+    const _accounts = [...mailAccounts];
+    _accounts.push(account);
+    setMailAccounts(_accounts);
   };
 
   return (
@@ -254,19 +285,34 @@ function BrowseMail(props) {
       </div>
       <MailContainer style={{ marginTop: "1rem" }}>
         <article className="folders">
+          <h3>Mail Accounts</h3>
+          <NewEmailAccountPopover onCreated={onMailAccountCreated} />
+          <ul>
+            {mailAccounts.map((account, index) => (
+              <li onClick={() => setSelectedMailAccount(account)} key={index}>
+                {selectedMailAccount?._id === account._id && "> "}
+                <span>{account.address}</span>
+              </li>
+            ))}
+          </ul>
+
           <h3>Folders</h3>
           <ul>
-            <li onClick={() => changeFolder("inbox")}>Inbox</li>
-            <li onClick={() => changeFolder("trash")}>Trash</li>
-            <li onClick={() => changeFolder("sent")}>Sent</li>
+            {FOLDERS.map((_folder, index) => (
+              <li onClick={() => changeFolder(_folder)} key={index}>
+                {_folder === folder && "> "}
+                <span>{capitalize(_folder)}</span>
+              </li>
+            ))}
           </ul>
         </article>
-
         <article className="mails">
           {mode === MODE.BROWSE && !!rows.length && (
             <>
               <DataTable
-                title={capitalize(folder)}
+                title={`${capitalize(folder)} - ${
+                  selectedMailAccount?.address
+                }`}
                 columns={columns}
                 data={rows}
                 selectableRows
@@ -281,7 +327,7 @@ function BrowseMail(props) {
             </>
           )}
 
-          {mode === MODE.VIEW && (
+          {mode === MODE.VIEW && selectedMail && (
             <ViewMode>
               <MailView
                 row={selectedMail}

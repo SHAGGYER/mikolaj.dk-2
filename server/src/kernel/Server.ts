@@ -24,10 +24,6 @@ export class Server {
     );
   }
 
-  public getApp(): Application {
-    return this.app;
-  }
-
   private loadMiddleware() {
     this.app.use(cors());
     this.app.use(bodyParser.json());

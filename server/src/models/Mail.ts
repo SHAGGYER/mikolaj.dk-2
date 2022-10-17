@@ -9,6 +9,12 @@ const MailSchema = new mongoose.Schema(
     date: Date,
     folder: String,
     seen: Boolean,
+    attachments: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "MailAttachment",
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -108,7 +108,9 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
 
   const handleOnSelect = (image) => {
     console.log(image);
-    onSelect("/uploads/" + image.filePath);
+    if (onSelect) {
+      onSelect("/uploads/" + image.filePath);
+    }
     dialog.close("/uploads/" + image.filePath);
   };
 
@@ -134,15 +136,13 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
               src={import.meta.env.VITE_API_URL + "/uploads/" + image.filePath}
               alt={image.originalName}
               onClick={() =>
-                onSelect
-                  ? handleOnSelect(image)
-                  : browser
+                browser
                   ? openBigImageDialog(
                       import.meta.env.VITE_API_URL +
                         "/uploads/" +
                         image.filePath
                     )
-                  : undefined
+                  : handleOnSelect(image)
               }
             />
           </ImageContainer>

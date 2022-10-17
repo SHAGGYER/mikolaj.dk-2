@@ -21,6 +21,7 @@ const Container = styled.div`
 `;
 
 function MailView({ row, onReply, onBack }) {
+  console.log(row);
   return (
     <Container>
       <h3>
@@ -34,6 +35,20 @@ function MailView({ row, onReply, onBack }) {
       <article className="buttons">
         <Button onClick={onReply}>Reply</Button>
         <Button onClick={onBack}>Back</Button>
+      </article>
+      <article className="border border-gray-400 p-2 mt-2 mb-2">
+        {row.attachments.map((attachment, index) => (
+          <a
+            key={index}
+            href={
+              import.meta.env.VITE_API_URL +
+              "/api/mail/download-attachment?id=" +
+              attachment
+            }
+          >
+            Attachment #{index + 1}
+          </a>
+        ))}
       </article>
     </Container>
   );

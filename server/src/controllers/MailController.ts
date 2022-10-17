@@ -3,6 +3,8 @@ import fs from "fs";
 import path from "path";
 import Mail from "../models/Mail";
 import { Request, Response } from "express";
+import MailAccount from "../models/MailAccount";
+import MailAttachment from "../models/MailAttachment";
 
 function nl2br(str, is_xhtml) {
   const breakTag =
@@ -15,6 +17,39 @@ function nl2br(str, is_xhtml) {
 }
 
 export class MailController {
+  public static async downloadAttachment(req, res) {
+    const attachment = await MailAttachment.findById(req.query.id);
+    res.download(attachment.path);
+  }
+
+  public static async uploadAttachment(req, res) {
+    const media = new MailAttachment({
+      path: req.file.filename,
+    });
+
+    await media.save();
+    res.send({ content: media });
+  }
+
+  public static async getMailAccounts(req, res) {
+    const accounts = await MailAccount.find();
+    res.send({ content: accounts });
+  }
+
+  public static async createMailAccount(req, res) {
+    const existingMailAccount = await MailAccount.findOne({
+      address: req.body.address,
+    });
+    if (existingMailAccount) {
+      return res.status(400).send({ error: "MAIL_ACCOUNT_EXISTS" });
+    }
+
+    const mailAccount = new MailAccount(req.body);
+    await mailAccount.save();
+
+    res.send({ content: mailAccount });
+  }
+
   public static async updateSeen(req, res) {
     await Mail.findByIdAndUpdate(req.params.id, { $set: { seen: true } });
     res.sendStatus(204);
@@ -23,7 +58,7 @@ export class MailController {
   public static async sendMail(req, res) {
     const mail = new Mail({
       ...req.body,
-      from: process.env.MAIL_FROM,
+      from: req.body.fromAddress,
       folder: "sent",
     });
     await mail.save();
@@ -32,6 +67,9 @@ export class MailController {
       to: req.body.to,
       subject: `Re: ${req.body.subject}`,
       html: req.body.message,
+      mailFromName: "Mikolaj Marciniak",
+      mailFromAddress: req.body.fromAddress,
+      attachments: req.body.attachments,
     });
 
     res.sendStatus(200);
@@ -85,8 +123,21 @@ export class MailController {
   public static async listEmails(req, res) {
     const limit = 10;
     const page = req.query.page;
-    const total = await Mail.countDocuments();
-    const mails = await Mail.find({ folder: req.query.folder })
+    let query = {};
+    if (req.query.folder === "sent") {
+      query["from"] = req.query.mailAccount;
+    } else {
+      query["to"] = req.query.mailAccount;
+    }
+    const total = await Mail.find({
+      ...query,
+      folder: req.query.folder,
+    }).countDocuments();
+
+    const mails = await Mail.find({
+      folder: req.query.folder,
+      ...query,
+    })
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit);
@@ -148,10 +199,8 @@ export const createOrder = async (req, res) => {
 };
 
 export const sendMail = async (req, res) => {
-  console.log(req.body);
-
   const result = await MailService.sendMail({
-    to: process.env.MAIL_TO,
+    to: process.env.MAIL_TO!,
     subject: req.body.subject,
     html: req.body.message,
     replyTo: process.env.MAIL_FROM,

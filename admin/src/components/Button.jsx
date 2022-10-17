@@ -1,12 +1,19 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Button = styled.button`
-  background-color: #1d5d90;
+  background-color: ${(props) =>
+    props.variant === "error"
+      ? "var(--red-primary)"
+      : props.variant === "success"
+      ? "var(--green-primary)"
+      : props.variant === "primary"
+      ? "var(--blue-primary)"
+      : "var(--blue-primary)"};
   color: white;
-  padding: 0.5rem 1.5rem;
+  padding: ${(props) => (props.$mini ? "0.25rem 0.75rem" : "0.5rem 1.5rem")};
   transition: all 0.5s ease-in-out;
-  border-radius: 10px;
+  border-radius: 7px;
 
   &:hover {
     background-color: #2a4365;

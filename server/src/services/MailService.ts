@@ -1,7 +1,11 @@
 import AWS from "aws-sdk";
 import Mail from "../models/Mail";
+import MailAttachment from "../models/MailAttachment";
 const simpleParser = require("mailparser").simpleParser;
 const nodemailer = require("nodemailer");
+import fs from "fs";
+import path from "path";
+import { v4 } from "uuid";
 
 export class MailService {
   static async receiveMail() {
@@ -28,6 +32,25 @@ export class MailService {
         if (!file) continue;
         const email = await simpleParser(file.Body);
 
+        const filePath = path.join(__dirname, "../../uploads/attachments");
+        if (!fs.existsSync(filePath)) {
+          fs.mkdirSync(filePath);
+        }
+
+        let attachmentPaths: any[] = [];
+        for (let attachment of email.attachments) {
+          const fileName = v4() + path.extname(attachment.filename);
+          fs.createWriteStream(filePath + "/" + fileName).write(
+            attachment.content
+          );
+          const dbAttachment = new MailAttachment({
+            path: filePath + "/" + fileName,
+            ext: path.extname(attachment.filename),
+          });
+          await dbAttachment.save();
+          attachmentPaths.push(dbAttachment);
+        }
+
         mails.push({
           from: email.from.value[0].address,
           to: email.to.value[0].address,
@@ -36,7 +59,10 @@ export class MailService {
           date: email.date,
           folder: "inbox",
           seen: false,
+          attachments: attachmentPaths.map((x) => x._id),
         });
+
+        console.log(email.attachments);
       } catch (e) {
         console.log(e);
       }
@@ -51,8 +77,8 @@ export class MailService {
 
     if (mails.length) {
       for (let mail of mails) {
-        const newMail = new Mail(mail)
-        await newMail.save()
+        const newMail = new Mail(mail);
+        await newMail.save();
       }
       await MailService.sendMail({
         to: "mikolaj73@gmail.com",
@@ -64,7 +90,23 @@ export class MailService {
     return mails;
   }
 
-  static async sendMail({ to, subject, html, replyTo }: any) {
+  static async sendMail({
+    to,
+    subject,
+    html,
+    replyTo,
+    mailFromName,
+    mailFromAddress,
+    attachments,
+  }: {
+    to: string;
+    subject: string;
+    html: string;
+    replyTo?: string;
+    mailFromName?: string;
+    mailFromAddress?: string;
+    attachments?: any[];
+  }) {
     try {
       let transporter = nodemailer.createTransport({
         host: process.env.MAIL_HOST,
@@ -77,12 +119,18 @@ export class MailService {
         tls: { rejectUnauthorized: true },
       });
 
+      const fromName = mailFromName ? mailFromName : process.env.MAIL_NAME;
+      const fromAddress = mailFromAddress
+        ? mailFromAddress
+        : process.env.MAIL_FROM;
+
       await transporter.sendMail({
-        from: `"${process.env.MAIL_NAME}" <${process.env.MAIL_FROM}>`,
+        from: `"${fromName}" <${fromAddress}>`,
         to,
         subject,
         html,
-        replyTo: replyTo,
+        replyTo,
+        attachments,
       });
 
       return true;
