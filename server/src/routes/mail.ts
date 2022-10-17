@@ -27,6 +27,8 @@ router.post(
   upload.single("file"),
   MailController.uploadAttachment
 );
+router.post("/create-contact", IsAdmin, MailController.createContact);
+router.post("/search-contacts", IsAdmin, MailController.searchContacts);
 router.get("/download-attachment", MailController.downloadAttachment);
 router.post("/createOrder", createOrder);
 router.post("/delete", IsAdmin, MailController.deleteMails);

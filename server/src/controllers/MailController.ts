@@ -5,6 +5,7 @@ import Mail from "../models/Mail";
 import { Request, Response } from "express";
 import MailAccount from "../models/MailAccount";
 import MailAttachment from "../models/MailAttachment";
+import MailContact from "../models/MailContact";
 
 function nl2br(str, is_xhtml) {
   const breakTag =
@@ -17,6 +18,27 @@ function nl2br(str, is_xhtml) {
 }
 
 export class MailController {
+  public static async createContact(req, res) {
+    const contact = new MailContact(req.body);
+    await contact.save();
+    res.send({ content: contact });
+  }
+
+  public static async searchContacts(req, res) {
+    const contacts = await MailContact.find({
+      $or: [
+        {
+          name: new RegExp(req.body.search, "i"),
+        },
+        {
+          address: new RegExp(req.body.search, "i"),
+        },
+      ],
+    });
+
+    res.send({ content: contacts });
+  }
+
   public static async downloadAttachment(req, res) {
     const attachment = await MailAttachment.findById(req.query.id);
     res.download(attachment.path);

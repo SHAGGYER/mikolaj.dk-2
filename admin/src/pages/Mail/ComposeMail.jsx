@@ -7,6 +7,7 @@ import HttpClient from "../../utilities/HttpClient";
 import FloatingTextField from "../../components/FloatingTextField";
 import styled from "styled-components";
 import JoditEditor from "jodit-react";
+import Autocomplete from "../../components/Autocomplete";
 
 const JoditContainer = styled.div`
   margin-bottom: 1rem;
@@ -179,11 +180,10 @@ function ComposeMail({ row, fromAddress }) {
         value={fromAccountAddress}
         onChange={(e) => setFromAccountAddress(e.target.value)}
       />
-      <FloatingTextField
+      <Autocomplete
         label="Recipient"
         innerRef={focusRef}
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
+        onSelectedContact={(contact) => setRecipient(contact)}
       />
       <FloatingTextField
         label="Subject"

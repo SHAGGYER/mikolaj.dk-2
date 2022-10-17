@@ -12,6 +12,7 @@ import styled from "styled-components";
 import ComposeMail from "./ComposeMail";
 import moment from "moment";
 import NewEmailAccountPopover from "../../components/NewEmailAccountPopover";
+import NewContactPopover from "../../components/NewContactPopover";
 
 const MailContainer = styled.article`
   display: flex;
@@ -89,6 +90,7 @@ const MODE = {
 const FOLDERS = ["inbox", "trash", "sent"];
 
 function BrowseMail(props) {
+  const [contacts, setContacts] = useState([]);
   const [folder, setFolder] = useState("inbox");
   const [page, setPage] = useState(1);
   const [mailAccounts, setMailAccounts] = useState([]);
@@ -106,6 +108,7 @@ function BrowseMail(props) {
   useEffect(() => {
     dispatch(setPageTitle("Mail"));
     fetchMailAccounts();
+    fetchContacts();
   }, []);
 
   useEffect(() => {
@@ -144,6 +147,13 @@ function BrowseMail(props) {
     }
 
     await fetchRows(1, "inbox", data.content[0]);
+  };
+
+  const fetchContacts = async (search = "") => {
+    const { data } = await HttpClient().post("/api/mail/search-contacts", {
+      search,
+    });
+    setContacts(data.content);
   };
 
   const fetchRows = async (page, folder, account) => {
@@ -277,6 +287,12 @@ function BrowseMail(props) {
     setMailAccounts(_accounts);
   };
 
+  const onContactCreated = (contact) => {
+    const _contacts = [...contacts];
+    _contacts.push(contact);
+    setContacts(_contacts);
+  };
+
   return (
     <>
       <div style={{ display: "flex", gap: "0.5rem" }}>
@@ -302,6 +318,16 @@ function BrowseMail(props) {
               <li onClick={() => changeFolder(_folder)} key={index}>
                 {_folder === folder && "> "}
                 <span>{capitalize(_folder)}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h3>Contacts</h3>
+          <NewContactPopover onCreated={onContactCreated} />
+          <ul>
+            {contacts.map((contact, index) => (
+              <li key={index}>
+                <span>{contact.name}</span>
               </li>
             ))}
           </ul>
