@@ -80,10 +80,10 @@ const MODE = {
 
 function BrowseMail(props) {
   const [folder, setFolder] = useState("inbox");
+  const [page, setPage] = useState(1);
   const [mode, setMode] = useState(MODE.BROWSE);
   const [selectedMail, setSelectedMail] = useState(null);
   const [rows, setRows] = useState([]);
-  const [search, setSearch] = useState("");
   const [totalRows, setTotalRows] = useState(0);
   const [toggleCleared, setToggleCleared] = React.useState(false);
   const [selectedRows, setSelectedRows] = React.useState([]);
@@ -125,12 +125,13 @@ function BrowseMail(props) {
     const { data } = await HttpClient().get(
       `/api/mail?page=${page}&folder=${folder}`
     );
+    setPage(page)
     setRows(data.rows);
     setTotalRows(data.totalRows);
   };
 
   const handlePageChange = (page) => {
-    fetchRows(page);
+    fetchRows(page, folder);
   };
 
   const openViewDialog = async (row) => {
@@ -209,6 +210,7 @@ function BrowseMail(props) {
   };
 
   const changeFolder = async (folder) => {
+    setRows([])
     await fetchRows(1, folder);
     setFolder(folder);
     setMode(MODE.BROWSE);
@@ -217,7 +219,9 @@ function BrowseMail(props) {
   const deleteRows = async (ids) => {
     await HttpClient().post(`/api/mail/delete`, { ids });
     cogoToast.success(`Successfully deleted ${selectedRows.length} rows`);
+    setRows([])
     await fetchRows(1, "inbox");
+
   };
 
   const restoreMail = async (ids) => {
@@ -258,7 +262,7 @@ function BrowseMail(props) {
           </ul>
         </article>
         <article className="mails">
-          {mode === MODE.BROWSE && (
+          {mode === MODE.BROWSE && !!rows.length && (
             <>
               <DataTable
                 title={capitalize(folder)}
