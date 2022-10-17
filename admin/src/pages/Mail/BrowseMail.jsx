@@ -261,6 +261,7 @@ function BrowseMail(props) {
             <li onClick={() => changeFolder("sent")}>Sent</li>
           </ul>
         </article>
+
         <article className="mails">
           {mode === MODE.BROWSE && !!rows.length && (
             <>
