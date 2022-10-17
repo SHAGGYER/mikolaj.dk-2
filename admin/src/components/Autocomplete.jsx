@@ -105,7 +105,14 @@ const Menu = ({ onSelected, close, contacts }) => {
   );
 };
 
-function Autocomplete({ label, type, error, innerRef, onSelectedContact }) {
+function Autocomplete({
+  label,
+  type,
+  error,
+  innerRef,
+  onSelectedContact,
+  defaultContact,
+}) {
   const uuid = useId();
   const [open, setOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState("");
@@ -147,7 +154,7 @@ function Autocomplete({ label, type, error, innerRef, onSelectedContact }) {
           ref={innerRef}
           id={uuid}
           type={type}
-          value={selectedContact || search}
+          value={selectedContact || search || defaultContact}
           onFocus={() => setSelectedContact("")}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Type here..."

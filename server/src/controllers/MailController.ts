@@ -87,7 +87,7 @@ export class MailController {
 
     await MailService.sendMail({
       to: req.body.to,
-      subject: `Re: ${req.body.subject}`,
+      subject: `${req.body.subject}`,
       html: req.body.message,
       mailFromName: "Mikolaj Marciniak",
       mailFromAddress: req.body.fromAddress,

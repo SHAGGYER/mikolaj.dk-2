@@ -184,6 +184,7 @@ function ComposeMail({ row, fromAddress }) {
         label="Recipient"
         innerRef={focusRef}
         onSelectedContact={(contact) => setRecipient(contact)}
+        defaultContact={row?.from}
       />
       <FloatingTextField
         label="Subject"
@@ -200,7 +201,7 @@ function ComposeMail({ row, fromAddress }) {
         />
       </JoditContainer>
 
-      <hr />
+      <hr style={{ marginBottom: "1rem" }} />
       <input type="file" onChange={(e) => onAttachmentSelected(e)} />
       <div className="flex gap-1">
         {attachments.map((attachment, index) => (
@@ -209,7 +210,8 @@ function ComposeMail({ row, fromAddress }) {
           </div>
         ))}
       </div>
-      <hr />
+      <hr style={{ marginBottom: "1rem", marginTop: "1rem" }} />
+
       <Button onClick={sendMail}>Send</Button>
     </div>
   );
