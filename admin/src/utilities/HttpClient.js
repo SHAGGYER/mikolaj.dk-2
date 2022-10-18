@@ -1,5 +1,16 @@
 import axios from "axios";
 
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (err) => {
+    if (err.response && err.response.status === 403) {
+      window.location.href = "/";
+    }
+  }
+);
+
 const HttpClient = () => {
   axios.defaults.baseURL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");

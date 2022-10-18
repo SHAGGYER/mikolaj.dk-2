@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 export const RestrictedRoute = ({ component: Component, ...rest }) => {
   const { authUser } = useSelector(({ auth }) => auth);
-  console.log(authUser);
 
   return (
     <Route

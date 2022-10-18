@@ -35,10 +35,6 @@ function PageBuilder(props) {
   const [mode, setMode] = useState(MODE.EDIT);
   const [selectedEditWidget, setSelectedEditWidget] = useState(null);
 
-  useEffect(() => {
-    console.log(widgets);
-  }, [widgets]);
-
   /* Delete Widget */
 
   const onDeleteWidget = (uuid) => {
@@ -86,8 +82,6 @@ function PageBuilder(props) {
   };
 
   const onUpdateValue = ({ style, value }) => {
-    console.log(style, value);
-
     setWidgets((prevState) => {
       findAndUpdateWidget(prevState, selectedEditWidget.uuid, style, value);
       return [...prevState];
@@ -118,8 +112,6 @@ function PageBuilder(props) {
   };
 
   const findAndAddWidgetWithUuid = (widgets, widgetType, uuid) => {
-    console.log(uuid);
-
     if (!widgets) return;
 
     if (!uuid) {
@@ -137,7 +129,6 @@ function PageBuilder(props) {
     let w = widgets.find((x) => x.uuid === uuid);
 
     if (!w) {
-      console.log(widgets);
       for (let thisWidget of widgets) {
         findAndAddWidgetWithUuid(thisWidget.widgets, widgetType, uuid);
       }

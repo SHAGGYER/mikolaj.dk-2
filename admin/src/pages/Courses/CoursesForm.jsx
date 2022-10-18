@@ -199,7 +199,6 @@ export default function CoursesForm({ row }) {
   };
 
   const saveLesson = async (section, lesson) => {
-    console.log(section);
     try {
       const payload = {
         name: lesson.name,

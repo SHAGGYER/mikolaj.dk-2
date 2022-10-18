@@ -25,7 +25,10 @@ export class AuthService {
         userId: user._id,
         userAccessLevel: user.accessLevel,
       },
-      process.env.JWT_SECRET!
+      process.env.JWT_SECRET!,
+      {
+        expiresIn: "1d",
+      }
     );
   }
 }

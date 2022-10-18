@@ -34,13 +34,12 @@ const MailContainer = styled.article`
       margin-bottom: 1rem;
 
       li {
-        border: 1px solid #ccc;
         padding: 0.5rem;
-        border-bottom: 0;
         cursor: pointer;
 
-        &:last-child {
-          border-bottom: 1px solid #ccc;
+        &:hover {
+          background: rgba(186, 189, 193, 0.28);
+          border-radius: 5px;
         }
       }
     }

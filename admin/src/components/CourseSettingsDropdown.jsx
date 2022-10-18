@@ -8,7 +8,6 @@ function CourseSettingsDropdown({ course, onCourseChanged }) {
 
   useEffect(() => {
     if (clicked) {
-      console.log("here");
       const _course = { ...course };
       _course.published = published;
       onCourseChanged(_course);

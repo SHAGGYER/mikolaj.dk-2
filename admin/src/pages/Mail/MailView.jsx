@@ -21,7 +21,6 @@ const Container = styled.div`
 `;
 
 function MailView({ row, onReply, onBack }) {
-  console.log(row);
   return (
     <Container>
       <h3>

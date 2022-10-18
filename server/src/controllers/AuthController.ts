@@ -110,6 +110,7 @@ export class AuthController {
 
     return res.status(200).send({ token, user });
   }
+
   public static async adminLogin(req: Request, res: Response) {
     const errors = await ValidationService.run(
       {

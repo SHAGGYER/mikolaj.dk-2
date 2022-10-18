@@ -107,7 +107,6 @@ export default function MediaExplorer({ onSelect, noTitle, browser }) {
   };
 
   const handleOnSelect = (image) => {
-    console.log(image);
     if (onSelect) {
       onSelect("/uploads/" + image.filePath);
     }

@@ -8,13 +8,14 @@ import TextField from "../../components/TextField";
 import S from "react-switch";
 import MediaExplorer from "../../components/MediaExplorer";
 import { setSettings } from "../../store/reducers/Auth";
+import cogoToast from "cogo-toast";
 const Switch = S.default ? S.default : S;
+import { setPageTitle } from "../../store/reducers/Common";
 
 const MediaExplorerDialog = () => {
   const dialog = useDialog();
 
   const onSelect = (path) => {
-    console.log("path", path);
     dialog.close(path);
   };
 
@@ -40,6 +41,7 @@ export default function Settings() {
   );
 
   useEffect(() => {
+    dispatch(setPageTitle("Settings"));
     if (settings) {
       setAvailableForWork(settings.availableForWork);
     }
@@ -49,16 +51,11 @@ export default function Settings() {
     await HttpClient().put("/api/admin/update-available-for-work", {
       availableForWork,
     });
-  };
-
-  const deleteAllMedia = async () => {
-    await HttpClient().delete("/api/media");
-    alert("Slettede media");
+    cogoToast.success("Successfully saved changes");
   };
 
   const openUpdateHomepageHeaderImageDialog = async () => {
     const result = await CustomDialog(<MediaExplorerDialog />);
-    console.log(result);
 
     if (result) {
       await HttpClient().put("/api/admin/update-homepage-image", {
@@ -67,6 +64,7 @@ export default function Settings() {
       const _settings = { ...settings };
       _settings.homepageHeaderImage = result;
       dispatch(setSettings(_settings));
+      cogoToast.success("Successfully saved changes");
     }
   };
 
@@ -80,28 +78,17 @@ export default function Settings() {
       const _settings = { ...settings };
       _settings.homepageAboutPlatformImage = result;
       dispatch(setSettings(_settings));
+      cogoToast.success("Successfully saved changes");
     }
   };
 
   const updateYoutubeViews = async () => {
     await HttpClient().put("/api/admin/update-youtube-views", { youtubeViews });
+    cogoToast.success("Successfully saved changes");
   };
 
   return (
-    <div>
-      <h1>Settings</h1>
-
-      <Fieldset>
-        <legend>Slet alle mediaer</legend>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => deleteAllMedia()}
-        >
-          Delete
-        </Button>
-      </Fieldset>
-
+    <>
       <Fieldset>
         <legend>Available For Work</legend>
 
@@ -176,6 +163,6 @@ export default function Settings() {
           Update
         </Button>
       </Fieldset>
-    </div>
+    </>
   );
 }

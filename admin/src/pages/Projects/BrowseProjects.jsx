@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { setPageTitle } from "../../store/reducers/Common";
 import { useDispatch } from "react-redux";
+import cogoToast from "cogo-toast";
 
 const MenuStyled = styled.div`
   position: absolute;
@@ -35,6 +36,7 @@ function BrowseProjects(props) {
       const _projects = [...projects];
       _projects.push(result);
       setProjects(_projects);
+      cogoToast.success("Successfully created this project");
     }
   };
 
@@ -48,6 +50,7 @@ function BrowseProjects(props) {
         return x;
       });
       setProjects(_projects);
+      cogoToast.success("Successfully saved changes");
     }
   };
 
@@ -60,6 +63,7 @@ function BrowseProjects(props) {
     await HttpClient().delete("/api/admin/projects/" + project._id);
     const _projects = [...projects].filter((x) => x._id !== project._id);
     setProjects(_projects);
+    cogoToast.success("Successfully deleted this project");
   };
 
   return (

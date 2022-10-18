@@ -132,7 +132,6 @@ function Autocomplete({
   }, [search]);
 
   const handleOnSelected = (contact) => {
-    console.log(contact);
     setSearch("");
     setSelectedContact(contact.address);
     onSelectedContact(contact.address);
