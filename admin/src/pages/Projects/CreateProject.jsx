@@ -3,11 +3,15 @@ import FloatingTextField from "../../components/FloatingTextField";
 import Button from "../../components/Button";
 import { useDialog } from "react-st-modal";
 import HttpClient from "../../utilities/HttpClient";
+import FloatingTextArea from "../../components/FloatingTextArea";
 
-function CreateProject() {
-  const [title, setTitle] = useState("");
-  const [githubUrl, setGithubUrl] = useState("");
-  const [demoUrl, setDemoUrl] = useState("");
+function CreateProject({ project }) {
+  const [title, setTitle] = useState(project ? project.title : "");
+  const [githubUrl, setGithubUrl] = useState(project ? project.githubUrl : "");
+  const [demoUrl, setDemoUrl] = useState(project ? project.demoUrl : "");
+  const [description, setDescription] = useState(
+    project ? project.description : ""
+  );
 
   const dialog = useDialog();
 
@@ -16,10 +20,25 @@ function CreateProject() {
       title,
       githubUrl,
       demoUrl,
+      description,
     };
 
-    const { data } = await HttpClient().post("/api/admin/create-project", body);
-    dialog.close(data.content);
+    if (project) {
+      const { data } = await HttpClient().put(
+        "/api/admin/update-project/" + project._id,
+        body
+      );
+      dialog.close({
+        ...project,
+        ...body,
+      });
+    } else {
+      const { data } = await HttpClient().post(
+        "/api/admin/create-project",
+        body
+      );
+      dialog.close(data.content);
+    }
   };
 
   return (
@@ -39,6 +58,12 @@ function CreateProject() {
         label="Demo URL"
         value={demoUrl}
         onChange={(e) => setDemoUrl(e.target.value)}
+      />
+
+      <FloatingTextArea
+        label="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       />
 
       <div className="flex gap-1">

@@ -5,7 +5,6 @@ import Button from "../../components/Button";
 import { Confirm, CustomDialog } from "react-st-modal";
 import { useDispatch } from "react-redux";
 import { setPageTitle } from "../../store/reducers/Common";
-import ConfirmDialog from "../../components/ConfirmDialog";
 import cogoToast from "cogo-toast";
 import CoursesForm from "./CoursesForm";
 
@@ -81,11 +80,9 @@ export default function BrowseCourses(props) {
 
   const ContextActions = React.useMemo(() => {
     const handleDelete = async () => {
-      const result = await CustomDialog(
-        <ConfirmDialog
-          title="Delete course"
-          body="You are about to delete course"
-        />
+      const result = await Confirm(
+        "Delete course",
+        "You are about to delete course"
       );
       if (result) {
         setToggleCleared(!toggleCleared);

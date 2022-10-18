@@ -6,7 +6,6 @@ import { Confirm, CustomDialog } from "react-st-modal";
 import { useDispatch } from "react-redux";
 import { setPageTitle } from "../../store/reducers/Common";
 import MailView from "./MailView";
-import ConfirmDialog from "../../components/ConfirmDialog";
 import cogoToast from "cogo-toast";
 import styled from "styled-components";
 import ComposeMail from "./ComposeMail";
@@ -178,11 +177,9 @@ function BrowseMail(props) {
 
   const ContextActions = React.useMemo(() => {
     const handleDelete = async () => {
-      const result = await CustomDialog(
-        <ConfirmDialog
-          title="Delete mail"
-          body="You are about to delete mail"
-        />
+      const result = await Confirm(
+        "Delete mail",
+        "You are about to delete mail"
       );
       if (result) {
         setToggleCleared(!toggleCleared);
@@ -191,11 +188,9 @@ function BrowseMail(props) {
     };
 
     const handleRestore = async () => {
-      const result = await CustomDialog(
-        <ConfirmDialog
-          title="Restore mail"
-          body="You are about to restore mail"
-        />
+      const result = await Confirm(
+        "Restore mail",
+        "You are about to restore mail"
       );
       if (result) {
         setToggleCleared(!toggleCleared);
@@ -204,11 +199,9 @@ function BrowseMail(props) {
     };
 
     const handleDeletePermanently = async () => {
-      const result = await CustomDialog(
-        <ConfirmDialog
-          title="Delete mail permanently"
-          body="You are about to delete mail permanently"
-        />
+      const result = await Confirm(
+        "Delete mail permanently",
+        "You are about to delete mail permanently"
       );
       if (result) {
         setToggleCleared(!toggleCleared);

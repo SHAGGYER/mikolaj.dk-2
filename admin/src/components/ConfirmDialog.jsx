@@ -1,34 +1,47 @@
-import React from "react";
 import styled from "styled-components";
+import React, { useRef, useState } from "react";
 import Button from "./Button";
-import { useDialog } from "react-st-modal";
+import { useClickOutside } from "../hooks/ClickOutside";
 
-const Container = styled.div`
-  color: black;
+const DeleteMenu = styled.div`
+  position: absolute;
   padding: 1rem;
-
-  h2 {
-    font-size: 18px;
-    font-weight: bold;
-  }
+  min-width: 250px;
+  background: white;
+  border: 1px solid #ccc;
+  right: 0;
+  z-index: 999;
 `;
 
-function ConfirmDialog({ title, body }) {
-  const dialog = useDialog();
-  return (
-    <Container>
-      <h2>{title}</h2>
-      <p>{body}</p>
-      <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
-        <Button type="primary" onClick={() => dialog.close(true)}>
-          Yes
-        </Button>
-        <Button type="error" onClick={() => dialog.close(false)}>
-          No
-        </Button>
-      </div>
-    </Container>
-  );
-}
+export const ConfirmDialog = ({ onSuccess, title }) => {
+  const [open, setOpen] = useState(false);
 
-export default ConfirmDialog;
+  const wrapperRef = useRef();
+  useClickOutside(wrapperRef, () => setOpen(false));
+
+  const handleSuccess = () => {
+    setOpen(false);
+    onSuccess();
+  };
+
+  return (
+    <div className="relative">
+      <a href="#" onClick={() => setOpen(true)}>
+        Delete
+      </a>
+      {open && (
+        <DeleteMenu ref={wrapperRef}>
+          <h3>{title}</h3>
+          <div className="flex gap-1 mt-2">
+            <Button $mini variant="primary" onClick={handleSuccess}>
+              OK
+            </Button>
+            <Button $mini variant="error" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+          </div>
+        </DeleteMenu>
+      )}
+    </div>
+  );
+};

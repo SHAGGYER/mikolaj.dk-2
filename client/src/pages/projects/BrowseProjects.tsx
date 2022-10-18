@@ -4,6 +4,7 @@ import { Container, SecondaryButton, Spacer } from "components/UI";
 import { Title } from "components/UI/Title";
 import HttpClient from "services/HttpClient";
 import styled from "styled-components";
+import { CustomDialog, useDialog } from "react-st-modal";
 
 const ProjectsContainer = styled.div`
   display: grid;
@@ -22,15 +23,73 @@ const ProjectStyled = styled.div`
   justify-content: center;
   position: relative;
 
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  article {
+    position: relative;
+    z-index: 999;
+  }
+`;
+
+const ProjectDialogStyled = styled.div`
+  padding: 2rem;
+  position: relative;
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
   article {
     z-index: 5;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    align-items: start;
     gap: 0.25rem;
   }
+
+  .toggler {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+  }
 `;
+
+const Project = ({ project }) => {
+  const dialog = useDialog();
+
+  const redirect = (path) => {
+    window.open(path, "_blank");
+  };
+
+  return (
+    <ProjectDialogStyled>
+      <div className="toggler" onClick={() => dialog.close()}>
+        x
+      </div>
+      <h3>{project.title}</h3>
+      <p>{project.description}</p>
+      <article>
+        <SecondaryButton mini onClick={() => redirect(project.githubUrl)}>
+          View Github
+        </SecondaryButton>
+        <SecondaryButton mini onClick={() => redirect(project.demoUrl)}>
+          View Demo
+        </SecondaryButton>
+      </article>
+    </ProjectDialogStyled>
+  );
+};
 
 function BrowseProjects(props) {
   const [projects, setProjects] = useState([]);
@@ -46,8 +105,8 @@ function BrowseProjects(props) {
     setProjects(data.content);
   };
 
-  const redirect = (path) => {
-    window.open(path, "_blank");
+  const openProject = async (project) => {
+    await CustomDialog(<Project project={project} />);
   };
 
   return (
@@ -60,17 +119,8 @@ function BrowseProjects(props) {
               <ProjectStyled key={index}>
                 <h3>{project.title}</h3>
                 <article>
-                  <SecondaryButton
-                    mini
-                    onClick={() => redirect(project.githubUrl)}
-                  >
-                    View Github
-                  </SecondaryButton>
-                  <SecondaryButton
-                    mini
-                    onClick={() => redirect(project.demoUrl)}
-                  >
-                    View Demo
+                  <SecondaryButton onClick={() => openProject(project)}>
+                    View
                   </SecondaryButton>
                 </article>
               </ProjectStyled>

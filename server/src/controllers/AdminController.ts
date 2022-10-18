@@ -2,6 +2,16 @@ import AppSettings from "../models/AppSettings";
 import Project from "../models/Project";
 
 export class AdminController {
+  public static async deleteProject(req, res) {
+    await Project.findByIdAndRemove(req.params.id);
+    res.sendStatus(204);
+  }
+
+  public static async updateProject(req, res) {
+    await Project.findByIdAndUpdate(req.params.id, { $set: req.body });
+    res.sendStatus(204);
+  }
+
   public static async getProjects(req, res) {
     const projects = await Project.find();
     res.send({ content: projects });

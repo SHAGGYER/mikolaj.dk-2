@@ -6,8 +6,8 @@ import { Confirm, CustomDialog } from "react-st-modal";
 import { useDispatch } from "react-redux";
 import { setPageTitle } from "../../store/reducers/Common";
 import HobbiesForm from "./HobbiesForm";
-import ConfirmDialog from "../../components/ConfirmDialog";
 import cogoToast from "cogo-toast";
+import { ConfirmDialog } from "../../components/ConfirmDialog";
 
 const allColumns = [
   {
@@ -85,12 +85,7 @@ function BrowseHobbies(props) {
 
   const ContextActions = React.useMemo(() => {
     const handleDelete = async () => {
-      const result = await CustomDialog(
-        <ConfirmDialog
-          title="Delete hobby"
-          body="You are about to delete hobby"
-        />
-      );
+      const result = await Confirm("Sure?");
       if (result) {
         setToggleCleared(!toggleCleared);
         await deleteRows(selectedRows.map((x) => x._id));

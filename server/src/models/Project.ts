@@ -5,6 +5,7 @@ const ProjectSchema = new mongoose.Schema(
     title: String,
     githubUrl: String,
     demoUrl: String,
+    description: String,
   },
   { timestamps: true }
 );

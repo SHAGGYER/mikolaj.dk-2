@@ -58,6 +58,8 @@
   --dark-orange: #ff6331;
   --blue: #13b6ff;
   --green: #49af46;
+  --st-button-primaryTextColor: var(--blue);
+
 }
 
 * {
