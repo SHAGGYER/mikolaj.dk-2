@@ -5,6 +5,8 @@ import CreateProject from "./CreateProject";
 import Button from "../../components/Button";
 import styled from "styled-components";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
+import { setPageTitle } from "../../store/reducers/Common";
+import { useDispatch } from "react-redux";
 
 const MenuStyled = styled.div`
   position: absolute;
@@ -20,7 +22,10 @@ const MenuStyled = styled.div`
 function BrowseProjects(props) {
   const [projects, setProjects] = useState([]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(setPageTitle("Projects"));
     getProjects();
   }, []);
 

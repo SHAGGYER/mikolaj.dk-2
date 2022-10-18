@@ -103,7 +103,7 @@ function Sidebar(props) {
     {
       label: "Projects",
       to: "/projects",
-      icon: "fa-solid fa-users",
+      icon: "fa-solid fa-table-cells-large",
     },
     {
       label: "Mail",
@@ -113,17 +113,17 @@ function Sidebar(props) {
     {
       label: "Page Builder",
       to: "/page-builder",
-      icon: "fa-solid fa-paper",
+      icon: "fa-regular fa-file",
     },
     {
       label: "Hobbies",
       to: "/hobbies",
-      icon: "fa-solid fa-circle-nodes",
+      icon: "fa-solid fa-dice-three",
     },
     {
       label: "Courses",
       to: "/courses",
-      icon: "fa-solid fa-circle-nodes",
+      icon: "fa-solid fa-table-list",
     },
     {
       label: "Settings",
