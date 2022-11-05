@@ -18,7 +18,6 @@ export default function Contact() {
   });
 
   useEffect(() => {
-    console.log(isVisible);
     if (isVisible) {
       setCurrentComponent("contact");
     }

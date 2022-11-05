@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container } from "./UI/Container";
 import { Wrapper } from "./UI/Wrapper";
 import styled from "styled-components";
 import { CustomDialog } from "react-st-modal";
 import { PrimaryButton } from "./UI/PrimaryButton";
+import { AppContext } from "../AppContext";
+import useElementOnScreen from "../hooks/UseElementOnScreen";
 
 const Box = styled.div`
   display: flex;
@@ -136,12 +138,12 @@ const ItemDialog = ({ item }) => {
         <PrimaryButton $filled onClick={() => window.open(item.link, "_blank")}>
           Visit Project
         </PrimaryButton>
-        <PrimaryButton
+        {/*         <PrimaryButton
           $filled
           onClick={() => window.open(item.githubUrl, "_blank")}
         >
           Github
-        </PrimaryButton>
+        </PrimaryButton> */}
       </article>
     </ItemDialogStyled>
   );
@@ -191,6 +193,19 @@ const keywords = [
 ];
 
 export default function Portfolio() {
+  const { setCurrentComponent } = useContext(AppContext);
+  const [containerRef, isVisible] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.35,
+  });
+
+  useEffect(() => {
+    if (isVisible) {
+      setCurrentComponent("portfolio");
+    }
+  }, [isVisible]);
+
   const [shownItems, setShownItems] = useState(items);
   const [currentKeyword, setCurrentKeyword] = useState("all");
   const openItemDialog = async (item) => {
@@ -208,7 +223,7 @@ export default function Portfolio() {
   };
 
   return (
-    <Container>
+    <Container ref={containerRef}>
       <Wrapper>
         <h3>Portfolio</h3>
         <div className="content">
