@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Container } from "./UI/Container";
 import styled from "styled-components";
 import Mikolaj from "../assets/mikolaj.jpg";
 import { Wrapper } from "./UI/Wrapper";
+import useElementOnScreen from "../hooks/UseElementOnScreen";
+import { AppContext } from "../AppContext";
 
 const AboutWrapper = styled(Wrapper)`
   grid-template-columns: 150px 1fr 1fr;
-  margin-bottom: 3rem;
   img {
     width: 100%;
     height: 100%;
@@ -15,8 +16,21 @@ const AboutWrapper = styled(Wrapper)`
 `;
 
 function About(props) {
+  const { setCurrentComponent } = useContext(AppContext);
+  const [containerRef, isVisible] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5,
+  });
+
+  useEffect(() => {
+    if (isVisible) {
+      setCurrentComponent("about");
+    }
+  }, [isVisible]);
+
   return (
-    <Container>
+    <Container ref={containerRef}>
       <AboutWrapper id="about">
         <h3>About Me</h3>
         <img src={Mikolaj} alt="mikolaj" />

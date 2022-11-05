@@ -9,6 +9,7 @@ import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 
 function App() {
+  const [currentComponent, setCurrentComponent] = useState(null);
   const [scrollY, setScrollY] = useState(0);
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(
@@ -34,6 +35,8 @@ function App() {
         navbarOpen,
         setNavbarOpen,
         isMobile,
+        currentComponent,
+        setCurrentComponent,
       }}
     >
       {scrollY >= 100 && <Navbar fixed />}

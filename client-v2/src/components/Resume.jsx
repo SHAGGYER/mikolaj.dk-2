@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Container } from "./UI/Container";
 import Timeline from "./UI/Timeline";
 import { PrimaryButton } from "./UI/PrimaryButton";
 import { Wrapper } from "./UI/Wrapper";
+import useElementOnScreen from "../hooks/UseElementOnScreen";
+import { AppContext } from "../AppContext";
 
 const items = [
   {
@@ -41,8 +43,20 @@ const items = [
 ];
 
 function Resume(props) {
+  const { setCurrentComponent } = useContext(AppContext);
+  const [containerRef, isVisible] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5,
+  });
+
+  useEffect(() => {
+    if (isVisible) {
+      setCurrentComponent("resume");
+    }
+  }, [isVisible]);
   return (
-    <Container>
+    <Container ref={containerRef}>
       <Wrapper id="resume">
         <h3>Resume</h3>
         <div className="content">

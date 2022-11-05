@@ -6,4 +6,6 @@ export const AppContext = createContext({
   navbarOpen: false,
   setNavbarOpen: () => null,
   isMobile: false,
+  currentComponent: null,
+  setCurrentComponent: () => null,
 });

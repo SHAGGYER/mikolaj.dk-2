@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container } from "./UI/Container";
 import { Wrapper } from "./UI/Wrapper";
 import FloatingTextField from "./UI/FloatingTextField";
@@ -6,8 +6,24 @@ import FloatingTextArea from "./UI/FloatingTextArea";
 import { PrimaryButton } from "./UI/PrimaryButton";
 import cogoToast from "cogo-toast";
 import HttpClient from "../HttpClient";
+import { AppContext } from "../AppContext";
+import useElementOnScreen from "../hooks/UseElementOnScreen";
 
 export default function Contact() {
+  const { setCurrentComponent } = useContext(AppContext);
+  const [containerRef, isVisible] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.35,
+  });
+
+  useEffect(() => {
+    console.log(isVisible);
+    if (isVisible) {
+      setCurrentComponent("contact");
+    }
+  }, [isVisible]);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -38,7 +54,7 @@ export default function Contact() {
   };
 
   return (
-    <Container>
+    <Container ref={containerRef}>
       <Wrapper id="contact">
         <h3>Contact</h3>
         <div className="content">

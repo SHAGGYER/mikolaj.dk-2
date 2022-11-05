@@ -50,6 +50,10 @@ const NavbarStyled = styled.div`
       color: white;
       text-decoration: none;
 
+      &[href$=${(props) => props.currentComponent}] {
+        color: red;
+      }
+
       &:hover {
         color: ${(props) => (props.$fixed ? "black" : "var(--primary)")};
       }
@@ -77,14 +81,15 @@ const NavbarStyled = styled.div`
 `;
 
 function Navbar({ fixed }) {
-  const { navbarOpen, setNavbarOpen, isMobile } = useContext(AppContext);
+  const { navbarOpen, setNavbarOpen, isMobile, currentComponent } =
+    useContext(AppContext);
 
   /*   useEffect(() => {
     console.log(isMobile);
   }, [isMobile]); */
 
   return (
-    <NavbarStyled $fixed={fixed}>
+    <NavbarStyled $fixed={fixed} currentComponent={currentComponent}>
       <div className="container">
         <div className="logo">
           <img src={fixed ? LogoWhite : Logo} alt="logo" />
@@ -95,7 +100,7 @@ function Navbar({ fixed }) {
         {((isMobile && navbarOpen) || !isMobile) && (
           <ul>
             <li>
-              <a href="#">Home</a>
+              <a href="#home">Home</a>
             </li>
             <li>
               <a href="#about">About</a>

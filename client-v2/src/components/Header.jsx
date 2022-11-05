@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Container } from "./UI/Container";
 import Beach from "../assets/beach.jpg";
 import { Subtitle, Title } from "./UI/Title";
@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { PrimaryButton } from "./UI/PrimaryButton";
 import Navbar from "./Navbar";
 import { AppContext } from "../AppContext";
+import useElementOnScreen from "../hooks/UseElementOnScreen";
 
 const HeaderContainer = styled.section`
   display: flex;
@@ -21,7 +22,18 @@ const HeaderContainer = styled.section`
 `;
 
 function Header(props) {
-  const { scrollY } = useContext(AppContext);
+  const { scrollY, setCurrentComponent } = useContext(AppContext);
+  const [containerRef, isVisible] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5,
+  });
+
+  useEffect(() => {
+    if (isVisible) {
+      setCurrentComponent("home");
+    }
+  }, [isVisible]);
 
   return (
     <div
@@ -31,6 +43,8 @@ function Header(props) {
         width: "100%",
         position: "relative",
       }}
+      id="home"
+      ref={containerRef}
     >
       <div
         style={{

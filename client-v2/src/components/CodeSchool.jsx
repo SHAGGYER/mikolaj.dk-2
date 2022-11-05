@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Container } from "./UI/Container";
 import styled from "styled-components";
 import { Wrapper } from "./UI/Wrapper";
 import Testimonials from "./Testimonials";
+import { AppContext } from "../AppContext";
+import useElementOnScreen from "../hooks/UseElementOnScreen";
 
 const Box = styled.div`
   border: 2px solid var(--primary);
@@ -100,9 +102,23 @@ const TechContainer = styled.div`
 `;
 
 function CodeSchool(props) {
+  const { setCurrentComponent } = useContext(AppContext);
+  const [containerRef, isVisible] = useElementOnScreen({
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.35,
+  });
+
+  useEffect(() => {
+    console.log(isVisible);
+    if (isVisible) {
+      setCurrentComponent("code-school");
+    }
+  }, [isVisible]);
+
   return (
     <Container>
-      <Wrapper id="code-school">
+      <Wrapper id="code-school" ref={containerRef}>
         <h3>Code School</h3>
         <div className="content">
           <h2>I teach coding...</h2>
