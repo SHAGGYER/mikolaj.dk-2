@@ -5,17 +5,43 @@ import Mikolaj from "../assets/mikolaj.jpg";
 import { Wrapper } from "./UI/Wrapper";
 import useElementOnScreen from "../hooks/UseElementOnScreen";
 import { AppContext } from "../AppContext";
+import ImageGallery from "react-image-gallery";
+
+const images = [
+  {
+    original: "/assets/mikolaj.jpg",
+  },
+  {
+    original: "/assets/mikolaj2.jpg",
+  },
+  {
+    original: "/assets/mikolaj3.jpg",
+  },
+  {
+    original: "/assets/mikolaj4.jpg",
+  },
+  {
+    original: "/assets/mikolaj5.jpg",
+  },
+  {
+    original: "/assets/mikolaj6.jpg",
+  },
+  {
+    original: "/assets/mikolaj7.jpg",
+  },
+];
 
 const AboutWrapper = styled(Wrapper)`
   grid-template-columns: 150px 1fr 1fr;
   img {
     width: 100%;
-    height: 100%;
+    height: 500px;
     object-fit: cover;
   }
 
   p {
     line-height: 2;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -37,7 +63,7 @@ function About(props) {
     <Container ref={containerRef}>
       <AboutWrapper id="about">
         <h3>About Me</h3>
-        <img src={Mikolaj} alt="mikolaj" />
+        <ImageGallery items={images} showThumbnails={false} showBullets />
         <article>
           <h2>Interesting Me</h2>
           <hr />

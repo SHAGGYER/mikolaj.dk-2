@@ -35,7 +35,51 @@ const items = [
   },
   {
     title: "August 2019 - October 2020",
-    description: "Web Developer education",
+    description: "Finished Web Developer education",
+    extra: (
+      <PrimaryButton
+        $filled
+        onClick={() =>
+          window.open("/assets/certificates/uddbevis.pdf", "_blank")
+        }
+      >
+        See certificate
+      </PrimaryButton>
+    ),
+  },
+  {
+    title: "December 2017",
+    description: "Microsoft Technology Associate Certificate - C#",
+    extra: (
+      <PrimaryButton
+        $filled
+        onClick={() =>
+          window.open(
+            "/assets/certificates/Microsoft_Certified_Professional_Certificate_1.pdf",
+            "_blank"
+          )
+        }
+      >
+        See certificate
+      </PrimaryButton>
+    ),
+  },
+  {
+    title: "November 2017",
+    description: "Microsoft Technology Associate Certificate - Java",
+    extra: (
+      <PrimaryButton
+        $filled
+        onClick={() =>
+          window.open(
+            "/assets/certificates/Microsoft_Certified_Professional_Certificate_0.pdf",
+            "_blank"
+          )
+        }
+      >
+        See certificate
+      </PrimaryButton>
+    ),
   },
   {
     title: "August 2017 - June 2018",

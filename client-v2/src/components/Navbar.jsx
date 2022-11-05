@@ -31,7 +31,7 @@ const NavbarStyled = styled.div`
     css`
       position: fixed;
       width: 100%;
-      height: 5rem;
+      height: 5.5rem;
       background: var(--primary);
     `};
 

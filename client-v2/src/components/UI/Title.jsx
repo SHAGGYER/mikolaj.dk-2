@@ -15,5 +15,5 @@ export const Subtitle = styled.h2`
 export const SectionTitle = styled.h3`
   position: sticky;
   align-self: start;
-  top: 5rem;
+  top: 6rem;
 `;
