@@ -7,6 +7,7 @@ import Resume from "./components/Resume";
 import CodeSchool from "./components/CodeSchool";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
+import Portfolio from "./components/Portfolio";
 
 function App() {
   const [currentComponent, setCurrentComponent] = useState(null);
@@ -43,7 +44,10 @@ function App() {
       <Header />
       <About />
       <Resume />
+
       <CodeSchool />
+
+      <Portfolio />
       <Contact />
     </AppContext.Provider>
   );
