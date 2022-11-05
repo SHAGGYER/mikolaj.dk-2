@@ -13,6 +13,10 @@ const AboutWrapper = styled(Wrapper)`
     height: 100%;
     object-fit: cover;
   }
+
+  p {
+    line-height: 2;
+  }
 `;
 
 function About(props) {
@@ -38,18 +42,13 @@ function About(props) {
           <h2>Interesting Me</h2>
           <hr />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Accusantium, beatae distinctio dolor dolorum ea earum est excepturi
-            explicabo, fugit minima natus numquam odio quia sapiente, sed soluta
-            vel vero voluptas! Accusamus beatae consequatur, culpa cum
-            cupiditate, dicta dolore dolores eligendi, est ex necessitatibus
-            similique unde vel. Ab accusamus amet asperiores at consectetur
-            culpa doloribus harum ipsam laudantium minus non ratione
-            reprehenderit temporibus, ut veritatis. Ab aperiam assumenda atque,
-            commodi cumque deserunt dicta dolore doloribus eligendi error et
-            excepturi facere fugiat, illo impedit incidunt ipsa iste itaque modi
-            mollitia nisi nostrum porro provident quae quidem saepe sapiente
-            sint vel veniam voluptate!
+            I'm a Full Stack Developer from Poland, born in June 1991 and no
+            siblings. I really love what I do and I'm sure we will have a great
+            time working together, whether you have a job for me or you wish to
+            learn. In my free time, I love making great food, for example
+            lasagne or indian food. I also like reading books and going for a
+            walk while listening to music. I share my love of games (mostly
+            World of Warcraft) with my friends and I play as often as I can.
           </p>
         </article>
       </AboutWrapper>

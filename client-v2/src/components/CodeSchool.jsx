@@ -5,6 +5,7 @@ import { Wrapper } from "./UI/Wrapper";
 import Testimonials from "./Testimonials";
 import { AppContext } from "../AppContext";
 import useElementOnScreen from "../hooks/UseElementOnScreen";
+import { SectionTitle } from "./UI/Title";
 
 const Box = styled.div`
   border: 2px solid var(--primary);
@@ -110,7 +111,6 @@ function CodeSchool(props) {
   });
 
   useEffect(() => {
-    console.log(isVisible);
     if (isVisible) {
       setCurrentComponent("code-school");
     }
@@ -119,7 +119,7 @@ function CodeSchool(props) {
   return (
     <Container>
       <Wrapper id="code-school" ref={containerRef}>
-        <h3>Code School</h3>
+        <SectionTitle>Code School</SectionTitle>
         <div className="content">
           <h2>I teach coding...</h2>
           <hr />

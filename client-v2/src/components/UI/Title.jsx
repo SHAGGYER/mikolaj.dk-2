@@ -11,3 +11,9 @@ export const Subtitle = styled.h2`
   font-weight: normal;
   margin-bottom: 2rem;
 `;
+
+export const SectionTitle = styled.h3`
+  position: sticky;
+  align-self: start;
+  top: 5rem;
+`;

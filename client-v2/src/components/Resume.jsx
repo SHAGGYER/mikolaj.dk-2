@@ -5,6 +5,7 @@ import { PrimaryButton } from "./UI/PrimaryButton";
 import { Wrapper } from "./UI/Wrapper";
 import useElementOnScreen from "../hooks/UseElementOnScreen";
 import { AppContext } from "../AppContext";
+import { SectionTitle } from "./UI/Title";
 
 const items = [
   {
@@ -58,7 +59,7 @@ function Resume(props) {
   return (
     <Container ref={containerRef}>
       <Wrapper id="resume">
-        <h3>Resume</h3>
+        <SectionTitle>Resume</SectionTitle>
         <div className="content">
           <h2>Here's my full resume</h2>
           <hr />
