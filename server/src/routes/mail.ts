@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+router.delete("/delete-account/:id", IsAdmin, MailController.deleteMailAccount);
 router.post(
   "/upload-mail-attachment",
   IsAdmin,
@@ -31,6 +32,7 @@ router.post("/create-contact", IsAdmin, MailController.createContact);
 router.post("/search-contacts", IsAdmin, MailController.searchContacts);
 router.get("/download-attachment", MailController.downloadAttachment);
 router.post("/createOrder", createOrder);
+router.post("/sendMail", MailController.sendContactMail);
 router.post("/delete", IsAdmin, MailController.deleteMails);
 router.get("/mail-accounts", IsAdmin, MailController.getMailAccounts);
 router.get("/fetch-mail", IsAdmin, MailController.fetchMail);

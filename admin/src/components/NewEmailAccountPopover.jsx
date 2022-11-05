@@ -7,6 +7,7 @@ import FloatingTextField from "./FloatingTextField";
 
 const Container = styled.section`
   position: relative;
+  z-index: 9999;
 
   & > a {
     color: var(--blue);

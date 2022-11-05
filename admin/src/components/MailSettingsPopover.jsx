@@ -4,9 +4,11 @@ import { useClickOutside } from "../hooks/ClickOutside";
 import Button from "./Button";
 import HttpClient from "../utilities/HttpClient";
 import FloatingTextField from "./FloatingTextField";
+import DeleteButton from "./DeleteButton";
 
 const Container = styled.section`
   position: relative;
+  z-index: 999;
 
   & > a {
     color: var(--blue);
@@ -37,58 +39,47 @@ const CloseBtn = styled.button`
   top: 2px;
 `;
 
-const Menu = ({ onCreated, close }) => {
+const Menu = ({ onDeleted, close, account }) => {
   const [address, setAddress] = useState("");
   const wrapperRef = useRef();
   useClickOutside(wrapperRef, close);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    const body = {
-      address,
-    };
-
-    const { data } = await HttpClient().post(
-      "/api/mail/create-mail-account",
-      body
-    );
-    onCreated(data.content);
+  const deleteMailAccount = async () => {
+    await HttpClient().delete("/api/mail/delete-account/" + account._id);
+    onDeleted();
     close();
   };
 
   return (
     <MenuStyled ref={wrapperRef}>
-      <form onSubmit={onSubmit}>
-        <FloatingTextField
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          label="New E-Mail Account"
-        />
-        <div className="flex gap-1">
-          <Button $mini type="submit">
-            Save
-          </Button>
-          <Button $mini variant="error" type="button" onClick={() => close()}>
-            Cancel
-          </Button>
-        </div>
-      </form>
+      <div className="flex gap-1">
+        <DeleteButton onSuccess={deleteMailAccount} />
+        <Button $mini variant="error" type="button" onClick={() => close()}>
+          Cancel
+        </Button>
+      </div>
     </MenuStyled>
   );
 };
 
-function NewEmailAccountPopover({ onCreated }) {
+function MailSettingsPopover({ onDeleted, account }) {
   const [open, setOpen] = useState(false);
 
   return (
     <Container>
-      <a href="#" onClick={() => setOpen(true)}>
-        Create Email Account
-      </a>
-      {open && <Menu close={() => setOpen(false)} onCreated={onCreated} />}
+      <i
+        className="fa-solid fa-cog text-gray-500"
+        onClick={() => setOpen(true)}
+      />
+      {open && (
+        <Menu
+          close={() => setOpen(false)}
+          onDeleted={onDeleted}
+          account={account}
+        />
+      )}
     </Container>
   );
 }
 
-export default NewEmailAccountPopover;
+export default MailSettingsPopover;

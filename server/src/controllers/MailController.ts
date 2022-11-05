@@ -53,6 +53,11 @@ export class MailController {
     res.send({ content: media });
   }
 
+  public static async deleteMailAccount(req, res) {
+    await MailAccount.findByIdAndRemove(req.params.id);
+    res.sendStatus(204);
+  }
+
   public static async getMailAccounts(req, res) {
     const accounts = await MailAccount.find();
     res.send({ content: accounts });
@@ -165,6 +170,28 @@ export class MailController {
       .skip((page - 1) * limit);
     res.send({ rows: mails, totalRows: total });
   }
+
+  public static async sendContactMail(req, res) {
+    let template = fs
+      .readFileSync(path.join(__dirname, `../../email/Email.html`))
+      .toString();
+
+    template = template
+      .replace("{{NAME}}", req.body.name)
+      .replace("{{BODY}}", req.body.message);
+
+    const result = await MailService.sendMail({
+      to: process.env.MAIL_TO!,
+      subject: "New Contact Email",
+      html: template,
+      replyTo: req.body.email,
+    });
+    if (!result) {
+      return res.status(500).send({ error: "SERVER_ERROR" });
+    }
+
+    return res.sendStatus(200);
+  }
 }
 
 export const sendNew = async (req, res) => {
@@ -218,18 +245,4 @@ export const createOrder = async (req, res) => {
   }
 
   return res.sendStatus(204);
-};
-
-export const sendMail = async (req, res) => {
-  const result = await MailService.sendMail({
-    to: process.env.MAIL_TO!,
-    subject: req.body.subject,
-    html: req.body.message,
-    replyTo: process.env.MAIL_FROM,
-  });
-  if (!result) {
-    return res.status(500).send({ error: "SERVER_ERROR" });
-  }
-
-  return res.sendStatus(200);
 };

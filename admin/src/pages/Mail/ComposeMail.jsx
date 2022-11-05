@@ -8,6 +8,7 @@ import FloatingTextField from "../../components/FloatingTextField";
 import styled from "styled-components";
 import JoditEditor from "jodit-react";
 import Autocomplete from "../../components/Autocomplete";
+import cogoToast from "cogo-toast";
 
 const JoditContainer = styled.div`
   margin-bottom: 1rem;
@@ -160,6 +161,7 @@ function ComposeMail({ row, fromAddress }) {
     };
 
     await HttpClient().post("/api/mail", body);
+    cogoToast.success("Successfully sent mail");
     dialog.close(true);
   };
 

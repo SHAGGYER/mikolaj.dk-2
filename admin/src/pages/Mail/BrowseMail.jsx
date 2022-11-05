@@ -12,6 +12,7 @@ import ComposeMail from "./ComposeMail";
 import moment from "moment";
 import NewEmailAccountPopover from "../../components/NewEmailAccountPopover";
 import NewContactPopover from "../../components/NewContactPopover";
+import MailSettingsPopover from "../../components/MailSettingsPopover";
 
 const MailContainer = styled.article`
   display: flex;
@@ -36,6 +37,8 @@ const MailContainer = styled.article`
       li {
         padding: 0.5rem;
         cursor: pointer;
+        display: flex;
+        justify-content: space-between;
 
         &:hover {
           background: rgba(186, 189, 193, 0.28);
@@ -277,6 +280,13 @@ function BrowseMail(props) {
     const _accounts = [...mailAccounts];
     _accounts.push(account);
     setMailAccounts(_accounts);
+    cogoToast.success("Mail account created successfully");
+  };
+
+  const onMailAccountDeleted = (account) => {
+    const _accounts = [...mailAccounts].filter((x) => x._id !== account._id);
+    setMailAccounts(_accounts);
+    cogoToast.success("Mail account deleted successfully");
   };
 
   const onContactCreated = (contact) => {
@@ -297,9 +307,18 @@ function BrowseMail(props) {
           <NewEmailAccountPopover onCreated={onMailAccountCreated} />
           <ul>
             {mailAccounts.map((account, index) => (
-              <li onClick={() => setSelectedMailAccount(account)} key={index}>
-                {selectedMailAccount?._id === account._id && "> "}
-                <span>{account.address}</span>
+              <li key={index}>
+                <div
+                  className="flex-1"
+                  onClick={() => setSelectedMailAccount(account)}
+                >
+                  {selectedMailAccount?._id === account._id && "> "}
+                  <span>{account.address}</span>
+                </div>
+                <MailSettingsPopover
+                  onDeleted={() => onMailAccountDeleted(account)}
+                  account={account}
+                />
               </li>
             ))}
           </ul>
@@ -308,8 +327,10 @@ function BrowseMail(props) {
           <ul>
             {FOLDERS.map((_folder, index) => (
               <li onClick={() => changeFolder(_folder)} key={index}>
-                {_folder === folder && "> "}
-                <span>{capitalize(_folder)}</span>
+                <span>
+                  {_folder === folder && "> "}
+                  <span>{capitalize(_folder)}</span>
+                </span>
               </li>
             ))}
           </ul>
