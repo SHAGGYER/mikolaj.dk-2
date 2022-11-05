@@ -59,7 +59,7 @@ function Header(props) {
 
       <Container>
         <HeaderContainer>
-          <Title>Hello, I'm Mikolaj</Title>
+          <Title>Hello, I'm Mikolaj Marciniak</Title>
           <Subtitle>I am a professional Web Developer</Subtitle>
           <PrimaryButton
             onClick={() => window.open("/assets/cv.pdf", "_blank")}

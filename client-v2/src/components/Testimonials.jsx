@@ -107,7 +107,7 @@ const CarouselWrapper = styled.div`
     .myCarousel {
       background: #fafafa;
       margin-top: -9%;
-      width: 88%;
+      width: 100%;
       padding-top: 8%;
       padding-bottom: 12.5%;
       padding-left: 5%;
