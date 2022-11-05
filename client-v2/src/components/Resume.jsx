@@ -159,9 +159,8 @@ function Resume(props) {
           <h2>Here's my full resume</h2>
           <hr />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque
-            corporis nesciunt veritatis! Ad eum eveniet iure nulla quisquam
-            velit vero?
+            Here is a timeline of what happened to me during my professional
+            career.
           </p>
           <Timeline items={items} />
         </div>

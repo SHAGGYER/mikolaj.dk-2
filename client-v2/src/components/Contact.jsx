@@ -61,8 +61,8 @@ export default function Contact() {
           <h2>Drop me a line...</h2>
           <hr />
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam
-            libero at sit fuga optio nemo, eos praesentium amet dolor incidunt.
+            If you have any questions regarding my work, please do not hesitate
+            to contact me. I will reply within 24 hours :)
           </p>
 
           <form onSubmit={onSubmit}>

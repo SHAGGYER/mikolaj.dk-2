@@ -124,8 +124,9 @@ function CodeSchool(props) {
           <h2>I teach coding...</h2>
           <hr />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus
-            deleniti neque totam.
+            I teach a variety of programming languages and technologies,
+            including HTML, CSS, and JavaScript. I also teach server management
+            and app deployment.
           </p>
           <Boxes>
             {items.map((item, index) => (
@@ -160,10 +161,7 @@ function CodeSchool(props) {
           </TechContainer>
           <h2>What my clients say...</h2>
           <hr />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus
-            deleniti neque totam.
-          </p>
+          <p>My clients' words speak for themselves. :)</p>
           <Testimonials />
         </div>
       </Wrapper>
