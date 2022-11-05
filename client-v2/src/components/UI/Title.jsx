@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const Title = styled.h1`
   font-size: 60px;
-  color: var(--primary);
+
+  span {
+    color: var(--primary);
+  }
 `;
 
 export const Subtitle = styled.h2`

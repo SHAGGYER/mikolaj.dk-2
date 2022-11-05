@@ -16,7 +16,10 @@ const items = [
         onClick={() => window.open(import.meta.env.VITE_YOUTUBE_URL, "_blank")}
         $filled
       >
-        Check me out
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <i className="fa-brands fa-youtube" />
+          Check me out
+        </div>
       </PrimaryButton>
     ),
   },
@@ -140,7 +143,7 @@ function Resume(props) {
   const [containerRef, isVisible] = useElementOnScreen({
     root: null,
     rootMargin: "0px",
-    threshold: 0.5,
+    threshold: 0.3,
   });
 
   useEffect(() => {

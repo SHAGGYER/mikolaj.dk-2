@@ -3,10 +3,9 @@ import styled from "styled-components";
 export const PrimaryButton = styled.button`
   border: 1px solid var(--primary);
   border-radius: 7px;
-  width: 130px;
-  height: 50px;
   display: inline-block;
   font-size: 16px;
+  padding: 1rem 2rem;
   cursor: pointer;
   color: ${(props) => (props.$filled ? "black" : "white")};
 

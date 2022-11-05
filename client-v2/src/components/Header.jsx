@@ -15,6 +15,7 @@ const HeaderContainer = styled.section`
   height: 100%;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 
   @media screen and (max-width: 767px) {
     padding: 0 1rem;
@@ -59,7 +60,9 @@ function Header(props) {
 
       <Container>
         <HeaderContainer>
-          <Title>Hello, I'm Mikolaj Marciniak</Title>
+          <Title style={{ color: "white" }}>
+            Hello, I'm <span>Mikolaj Marciniak</span>
+          </Title>
           <Subtitle>I am a professional Web Developer</Subtitle>
           <PrimaryButton
             onClick={() => window.open("/assets/cv.pdf", "_blank")}
