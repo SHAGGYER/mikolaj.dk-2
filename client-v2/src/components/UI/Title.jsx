@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Title = styled.h1`
   font-size: 60px;
+  font-family: "Raleway", sans-serif;
 
   span {
     color: var(--primary);

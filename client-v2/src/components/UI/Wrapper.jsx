@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
     color: var(--primary);
     font-size: 120px;
     line-height: 1;
+    font-family: Raleway, sans-serif;
   }
 
   hr {
