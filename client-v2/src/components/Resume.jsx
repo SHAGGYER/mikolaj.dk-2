@@ -48,14 +48,14 @@ const items = [
     ),
   },
   {
-    title: "December 2017",
-    description: "Microsoft Technology Associate Certificate - C#",
+    title: "May 2, 2020",
+    description: "Advanced PHP Certificate",
     extra: (
       <PrimaryButton
         $filled
         onClick={() =>
           window.open(
-            "/assets/certificates/Microsoft_Certified_Professional_Certificate_1.pdf",
+            "/assets/certificates/CertificateOfCompletion_Advanced_PHP.pdf",
             "_blank"
           )
         }
@@ -64,8 +64,9 @@ const items = [
       </PrimaryButton>
     ),
   },
+
   {
-    title: "November 2017",
+    title: "December 1, 2017",
     description: "Microsoft Technology Associate Certificate - Java",
     extra: (
       <PrimaryButton
@@ -82,8 +83,55 @@ const items = [
     ),
   },
   {
-    title: "August 2017 - June 2018",
-    description: "Data Technician education",
+    title: "December 7, 2017",
+    description: "Microsoft Technology Associate - Python",
+    extra: (
+      <PrimaryButton
+        $filled
+        onClick={() =>
+          window.open(
+            "/assets/certificates/Microsoft_Certified_Professional_Certificate_3.pdf",
+            "_blank"
+          )
+        }
+      >
+        See certificate
+      </PrimaryButton>
+    ),
+  },
+  {
+    title: "November 24, 2017",
+    description: "Microsoft Technology Associate Certificate - C#",
+    extra: (
+      <PrimaryButton
+        $filled
+        onClick={() =>
+          window.open(
+            "/assets/certificates/Microsoft_Certified_Professional_Certificate_1.pdf",
+            "_blank"
+          )
+        }
+      >
+        See certificate
+      </PrimaryButton>
+    ),
+  },
+  {
+    title: "November 17, 2017",
+    description: "Microsoft Technology Associate Certificate - Databases",
+    extra: (
+      <PrimaryButton
+        $filled
+        onClick={() =>
+          window.open(
+            "/assets/certificates/Microsoft_Certified_Professional_Certificate_4.pdf",
+            "_blank"
+          )
+        }
+      >
+        See certificate
+      </PrimaryButton>
+    ),
   },
 ];
 
